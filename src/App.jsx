@@ -1,0 +1,31 @@
+import { motion } from 'framer-motion'
+import Header from './components/Header'
+import Hero from './components/Hero'
+import TrustSection from './components/TrustSection'
+import FeaturedProducts from './components/FeaturedProducts'
+import PrintingMethods from './components/PrintingMethods'
+import BrandSections from './components/BrandSections'
+import WhyChooseUs from './components/WhyChooseUs'
+import Testimonials from './components/Testimonials'
+import Footer from './components/Footer'
+import './index.css'
+
+function App() {
+  return (
+    <div className="min-h-screen bg-white">
+      <Header />
+      <main>
+        <Hero />
+        <TrustSection />
+        <FeaturedProducts />
+        <PrintingMethods />
+        <BrandSections />
+        <WhyChooseUs />
+        <Testimonials />
+      </main>
+      <Footer />
+    </div>
+  )
+}
+
+export default App

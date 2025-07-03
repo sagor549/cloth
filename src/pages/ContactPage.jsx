@@ -1,259 +1,321 @@
-import { motion } from 'framer-motion'
-import { Phone, Mail, MapPin, Clock, Sparkles, Star } from 'lucide-react'
-import Header from '../components/Header'
-import Footer from '../components/Footer'
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Phone, Mail, MapPin, Clock, Send, Check } from 'lucide-react';
+import emailjs from 'emailjs-com';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 const ContactPage = () => {
+  const [formData, setFormData] = useState({
+    user_name: '',
+    user_email: '',
+    user_phone: '',
+    user_message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError('');
+    
+    // Replace these with your actual EmailJS credentials
+    const SERVICE_ID = 'YOUR_SERVICE_ID';
+    const TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+    const USER_ID = 'YOUR_USER_ID';
+    
+    emailjs.send(SERVICE_ID, TEMPLATE_ID, formData, USER_ID)
+      .then(() => {
+        setIsSubmitting(false);
+        setSubmitSuccess(true);
+        setFormData({ 
+          user_name: '', 
+          user_email: '', 
+          user_phone: '', 
+          user_message: '' 
+        });
+        
+        // Reset success message after 5 seconds
+        setTimeout(() => setSubmitSuccess(false), 5000);
+      })
+      .catch(error => {
+        setIsSubmitting(false);
+        setSubmitError('Failed to send message. Please try again.');
+        console.error('Email sending error:', error);
+      });
+  };
+
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-to-b from-white to-blue-50">
       <Header />
       
-      <main className="pt-20">
-        {/* Hero Section */}
-        <section className="py-32 bg-gradient-to-br from-coral/10 via-teal/10 to-purple/10 relative overflow-hidden">
-          {/* Background decorations */}
-          <div className="absolute inset-0 opacity-30">
-            <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-pink-300 to-blue-300 rounded-full mix-blend-multiply filter blur-xl animate-float"></div>
-            <div className="absolute bottom-20 right-10 w-72 h-72 bg-gradient-to-r from-yellow-300 to-pink-300 rounded-full mix-blend-multiply filter blur-xl animate-float" style={{animationDelay: '2s'}}></div>
-          </div>
-
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+      <main className="">
+        {/* Form Section - At the Top */}
+        <section className="py-16 bg-gradient-to-br from-coral/10 via-teal/10 to-purple/10">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 0.6 }}
+              className="bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-gray-100"
             >
-              <motion.h1 
-                className="section-title gradient-text font-display mb-8"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-              >
-                Get In Touch
-              </motion.h1>
-              <motion.p 
-                className="text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed"
-                initial={{ opacity: 0, y: 30 }}
+              <div className="text-center mb-10">
+                <motion.h1 
+                  className="text-3xl md:text-4xl font-bold text-dark mb-4 font-display"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                >
+                  Get a Free Quote
+                </motion.h1>
+                <motion.p 
+                  className="text-gray-600 max-w-2xl mx-auto"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                >
+                  Fill out this form and our team will get back to you within 24 hours
+                </motion.p>
+              </div>
+              
+              {submitSuccess ? (
+                <motion.div 
+                  className="bg-green-50 border border-green-200 rounded-xl p-6 text-center"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                >
+                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Check className="w-8 h-8 text-green-600" />
+                  </div>
+                  <h3 className="text-xl font-bold text-green-800 mb-2">Thank You!</h3>
+                  <p className="text-green-700">
+                    Your message has been sent successfully. We'll contact you shortly.
+                  </p>
+                </motion.div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label htmlFor="user_name" className="block text-gray-700 mb-2 font-medium">Full Name *</label>
+                      <input 
+                        type="text" 
+                        name="user_name"
+                        required
+                        value={formData.user_name}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-coral focus:border-transparent transition-all"
+                        placeholder="John Doe"
+                      />
+                    </div>
+                    
+                    <div>
+                      <label htmlFor="user_email" className="block text-gray-700 mb-2 font-medium">Email *</label>
+                      <input 
+                        type="email" 
+                        name="user_email"
+                        required
+                        value={formData.user_email}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-coral focus:border-transparent transition-all"
+                        placeholder="john@example.com"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="user_phone" className="block text-gray-700 mb-2 font-medium">Phone Number</label>
+                    <input 
+                      type="tel" 
+                      name="user_phone"
+                      value={formData.user_phone}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-coral focus:border-transparent transition-all"
+                      placeholder="(123) 456-7890"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="user_message" className="block text-gray-700 mb-2 font-medium">Message *</label>
+                    <textarea 
+                      name="user_message"
+                      required
+                      rows={5}
+                      value={formData.user_message}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-coral focus:border-transparent transition-all"
+                      placeholder="Tell us about your project, quantities, timeline, etc..."
+                    ></textarea>
+                  </div>
+                  
+                  {submitError && (
+                    <div className="text-red-500 bg-red-50 p-3 rounded-lg">
+                      {submitError}
+                    </div>
+                  )}
+                  
+                  <motion.button 
+                    type="submit"
+                    disabled={isSubmitting}
+                    className={`w-full flex items-center justify-center py-4 bg-gradient-to-r from-coral to-orange-500 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 group ${
+                      isSubmitting ? 'opacity-70 cursor-not-allowed' : ''
+                    }`}
+                    whileHover={!isSubmitting ? { scale: 1.02 } : {}}
+                    whileTap={!isSubmitting ? { scale: 0.98 } : {}}
+                  >
+                    {isSubmitting ? (
+                      <div className="flex items-center">
+                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <span>Sending...</span>
+                      </div>
+                    ) : (
+                      <>
+                        <span className="mr-2">Get Your Free Quote</span>
+                        <Send className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                      </>
+                    )}
+                  </motion.button>
+                </form>
+              )}
+              
+              <motion.div 
+                className="mt-8 p-6 bg-blue-50 rounded-xl border border-blue-100"
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
+                transition={{ duration: 0.6, delay: 0.8 }}
               >
-                Ready to bring your custom merchandise ideas to life? We're here to help you every step of the way.
-              </motion.p>
-              <motion.div
-                className="w-24 h-1 bg-gradient-to-r from-coral to-teal mx-auto rounded-full mt-8"
-                initial={{ width: 0 }}
-                animate={{ width: 96 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-              />
+                <h3 className="font-semibold text-dark mb-3">What happens next?</h3>
+                <ul className="space-y-2 text-gray-600">
+                  <li className="flex items-start">
+                    <Check className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                    <span>We review your request within 24 hours</span>
+                  </li>
+                  <li className="flex items-start">
+                    <Check className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                    <span>Our specialist contacts you with a quote</span>
+                  </li>
+                  <li className="flex items-start">
+                    <Check className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                    <span>We discuss your project requirements</span>
+                  </li>
+                </ul>
+              </motion.div>
             </motion.div>
           </div>
         </section>
 
-        {/* Contact Content */}
-        <section className="py-32 bg-gradient-to-br from-slate-50 via-white to-gray-50 relative overflow-hidden">
-          {/* Background decorations */}
-          <div className="absolute inset-0 opacity-20">
-            <div className="absolute top-40 right-20 w-80 h-80 bg-gradient-to-r from-purple-300 to-pink-300 rounded-full mix-blend-multiply filter blur-xl animate-float"></div>
-            <div className="absolute bottom-40 left-20 w-80 h-80 bg-gradient-to-r from-blue-300 to-teal-300 rounded-full mix-blend-multiply filter blur-xl animate-float" style={{animationDelay: '3s'}}></div>
-          </div>
-
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
-              {/* Contact Information */}
-              <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }}
-                className="space-y-12"
+        {/* Contact Details Section - Below the Form */}
+        <section className="py-16 bg-white">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-16"
+            >
+              <motion.h2 
+                className="text-3xl md:text-4xl font-bold text-dark mb-4 font-display"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
               >
-                <div>
-                  <motion.h2 
-                    className="text-4xl font-bold text-dark mb-8 font-display"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                  >
-                    Contact Information
-                  </motion.h2>
-                  <motion.p 
-                    className="text-gray-600 text-xl leading-relaxed"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.4 }}
-                  >
-                    Have questions about our services or need a custom quote? 
-                    We'd love to hear from you. Reach out using any of the methods below.
-                  </motion.p>
-                </div>
-
-                <div className="space-y-8">
-                  <motion.div
-                    className="flex items-center space-x-6 p-8 bg-white rounded-3xl shadow-xl hover-lift group"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.6 }}
-                  >
-                    <div className="w-16 h-16 bg-gradient-to-r from-coral to-pink-500 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                      <Phone className="w-8 h-8 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-dark text-xl mb-2">Phone</h3>
-                      <p className="text-gray-600 text-lg">905-237-1464</p>
-                    </div>
-                  </motion.div>
-
-                  <motion.div
-                    className="flex items-center space-x-6 p-8 bg-white rounded-3xl shadow-xl hover-lift group"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.8 }}
-                  >
-                    <div className="w-16 h-16 bg-gradient-to-r from-teal to-green-500 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                      <Mail className="w-8 h-8 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-dark text-xl mb-2">Email</h3>
-                      <p className="text-gray-600 text-lg">info@advancedprinting.org</p>
-                    </div>
-                  </motion.div>
-
-                  <motion.div
-                    className="flex items-center space-x-6 p-8 bg-white rounded-3xl shadow-xl hover-lift group"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 1.0 }}
-                  >
-                    <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                      <MapPin className="w-8 h-8 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-dark text-xl mb-2">Address</h3>
-                      <p className="text-gray-600 text-lg">10330 Yonge St #1, Richmond Hill, Ontario, L4C 5N1</p>
-                    </div>
-                  </motion.div>
-
-                  <motion.div
-                    className="flex items-center space-x-6 p-8 bg-white rounded-3xl shadow-xl hover-lift group"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 1.2 }}
-                  >
-                    <div className="w-16 h-16 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                      <Clock className="w-8 h-8 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-dark text-xl mb-2">Business Hours</h3>
-                      <p className="text-gray-600 text-lg">Mon-Fri: 9AM-6PM<br />Sat: 10AM-4PM</p>
-                    </div>
-                  </motion.div>
-                </div>
-              </motion.div>
-
-              {/* Enhanced Visual Section */}
-              <motion.div
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="relative"
+                Contact Information
+              </motion.h2>
+              <motion.p 
+                className="text-gray-600 max-w-2xl mx-auto"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
               >
-                <div className="bg-gradient-to-br from-coral/10 to-teal/10 p-12 rounded-3xl shadow-2xl relative overflow-hidden">
-                  {/* Floating decorative elements */}
-                  <motion.div
-                    className="absolute top-8 right-8 w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center"
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                  >
-                    <Sparkles className="w-6 h-6 text-white" />
-                  </motion.div>
-
-                  <motion.div
-                    className="absolute bottom-8 left-8 w-8 h-8 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full flex items-center justify-center"
-                    animate={{ scale: [1, 1.2, 1] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  >
-                    <Star className="w-4 h-4 text-white" />
-                  </motion.div>
-
-                  <motion.h2 
-                    className="text-4xl font-bold text-dark mb-8 font-display"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.4 }}
-                  >
-                    Let's Create Something Amazing Together
-                  </motion.h2>
-                  
-                  <motion.div 
-                    className="space-y-8"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.6 }}
-                  >
-                    <div className="flex items-start space-x-4">
-                      <div className="w-10 h-10 bg-gradient-to-r from-green-400 to-green-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                        <span className="text-white text-sm font-bold">✓</span>
-                      </div>
-                      <div>
-                        <h3 className="font-bold text-dark mb-3 text-xl">Fast Turnaround</h3>
-                        <p className="text-gray-600 text-lg">Get your custom merchandise in as little as 7 days with our streamlined production process.</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start space-x-4">
-                      <div className="w-10 h-10 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                        <span className="text-white text-sm font-bold">✓</span>
-                      </div>
-                      <div>
-                        <h3 className="font-bold text-dark mb-3 text-xl">No Minimum Orders</h3>
-                        <p className="text-gray-600 text-lg">Whether you need 1 or 1000 pieces, we provide the same premium quality and attention to detail.</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start space-x-4">
-                      <div className="w-10 h-10 bg-gradient-to-r from-purple-400 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                        <span className="text-white text-sm font-bold">✓</span>
-                      </div>
-                      <div>
-                        <h3 className="font-bold text-dark mb-3 text-xl">Premium Quality</h3>
-                        <p className="text-gray-600 text-lg">High-quality printing, embroidery, and embossing services that make your brand stand out.</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start space-x-4">
-                      <div className="w-10 h-10 bg-gradient-to-r from-coral to-pink-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                        <span className="text-white text-sm font-bold">✓</span>
-                      </div>
-                      <div>
-                        <h3 className="font-bold text-dark mb-3 text-xl">Design Support</h3>
-                        <p className="text-gray-600 text-lg">Our in-house design team can help bring your vision to life with creative expertise.</p>
-                      </div>
-                    </div>
-                  </motion.div>
-
-                  <motion.div
-                    className="mt-12"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.8 }}
-                  >
-                    <motion.button
-                      className="btn-primary text-white px-10 py-4 rounded-full text-lg font-semibold shadow-2xl magnetic"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      Get Free Quote
-                    </motion.button>
-                  </motion.div>
-                </div>
-              </motion.div>
+                Reach out to us through any of these channels
+              </motion.p>
+            </motion.div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {[
+                { 
+                  icon: <Phone className="w-8 h-8 text-white" />, 
+                  bg: "bg-gradient-to-br from-coral to-orange-500",
+                  title: "Phone", 
+                  content: "905-237-1464",
+                  link: "tel:905-237-1464"
+                },
+                { 
+                  icon: <Mail className="w-8 h-8 text-white" />, 
+                  bg: "bg-gradient-to-br from-teal to-blue-500",
+                  title: "Email", 
+                  content: "info@advancedprinting.org",
+                  link: "mailto:info@advancedprinting.org"
+                },
+                { 
+                  icon: <MapPin className="w-8 h-8 text-white" />, 
+                  bg: "bg-gradient-to-br from-indigo-500 to-purple-600",
+                  title: "Address", 
+                  content: "10330 Yonge St #1, Richmond Hill, Ontario, L4C 5N1",
+                  link: "https://maps.google.com/?q=10330+Yonge+St+%231,+Richmond+Hill,+Ontario,+L4C+5N1"
+                },
+                { 
+                  icon: <Clock className="w-8 h-8 text-white" />, 
+                  bg: "bg-gradient-to-br from-amber-500 to-yellow-500",
+                  title: "Business Hours", 
+                  content: "Mon-Fri: 9AM-6PM | Sat: 10AM-4PM",
+                  link: null
+                }
+              ].map((item, index) => (
+                <motion.a
+                  key={index}
+                  href={item.link || undefined}
+                  target={item.link ? "_blank" : undefined}
+                  rel={item.link ? "noopener noreferrer" : undefined}
+                  className={`flex flex-col items-center text-center p-8 rounded-2xl hover:shadow-xl transition-all duration-300 ${
+                    item.link ? "cursor-pointer" : "cursor-default"
+                  } bg-gradient-to-br from-white to-gray-50 border border-gray-100`}
+                  whileHover={{ y: -10 }}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.1 * index + 0.6 }}
+                >
+                  <div className={`${item.bg} w-20 h-20 rounded-full flex items-center justify-center mb-6`}>
+                    {item.icon}
+                  </div>
+                  <h3 className="font-bold text-xl text-dark mb-3">{item.title}</h3>
+                  <p className="text-gray-600">{item.content}</p>
+                </motion.a>
+              ))}
             </div>
+            
+            <motion.div
+              className="mt-16 rounded-2xl overflow-hidden border border-gray-200 shadow-lg"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1 }}
+            >
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2879.031444051624!2d-79.4383227!3d43.817091299999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b2cff565c9e0d%3A0x5b1d1c6f2d6b3e1f!2s10330%20Yonge%20St%20%231%2C%20Richmond%20Hill%2C%20ON%20L4C%205N1!5e0!3m2!1sen!2sca!4v1716768000000!5m2!1sen!2sca" 
+                width="100%" 
+                height="400" 
+                style={{ border: 0 }} 
+                allowFullScreen 
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </motion.div>
           </div>
         </section>
       </main>
 
       <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default ContactPage
+export default ContactPage;

@@ -30,7 +30,7 @@ const TrustSection = () => {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="section-title text-dark mb-8 font-display">
+          <h2 className="section-title text-dark mb-8 ">
             Trusted by 1,000,000+
           </h2>
           

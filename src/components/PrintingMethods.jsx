@@ -54,7 +54,7 @@ const PrintingMethods = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="section-title text-dark mb-4 font-display">
+          <h2 className="section-title text-dark mb-4 ">
             Custom Printing & Embroidery Options
           </h2>
         </motion.div>
@@ -79,7 +79,7 @@ const PrintingMethods = () => {
                     className="w-full h-full object-cover rounded-2xl"
                   />
                   <div className="absolute bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm p-4 rounded-b-2xl">
-                    <h3 className="text-xl font-bold text-dark font-display">{method.name}</h3>
+                    <h3 className="text-xl font-bold text-dark font-alice">{method.name}</h3>
                   </div>
                 </div>
 
@@ -93,8 +93,8 @@ const PrintingMethods = () => {
                   {/* Overlay on top of image so image is still visible */}
                   <div className="absolute inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-6 text-white text-center rounded-2xl">
                     <div>
-                      <h3 className="text-2xl font-bold mb-4 font-display text-coral">{method.name}</h3>
-                      <p className="text-lg leading-relaxed">{method.details}</p>
+                      <h3 className="text-2xl font-bold mb-4 font-alice text-coral">{method.name}</h3>
+                      <p className="text-lg leading-relaxed font-alegreya">{method.details}</p>
                     </div>
                   </div>
                 </div>
@@ -104,8 +104,8 @@ const PrintingMethods = () => {
               {clickedCard === index && (
                 <div className="md:hidden absolute inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-6 text-white text-center rounded-2xl z-10">
                   <div>
-                    <h3 className="text-2xl font-bold mb-4 font-display text-coral">{method.name}</h3>
-                    <p className="text-lg leading-relaxed">{method.details}</p>
+                    <h3 className="text-2xl font-bold mb-4 font-alice text-coral">{method.name}</h3>
+                    <p className="text-lg leading-relaxed font-alegreya">{method.details}</p>
                   </div>
                 </div>
               )}

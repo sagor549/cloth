@@ -2,12 +2,14 @@ import { motion } from 'framer-motion'
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useNavigate } from 'react-router-dom'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const Hero = () => {
   const heroRef = useRef(null)
   const contentRef = useRef(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const hero = heroRef.current
@@ -31,6 +33,11 @@ const Hero = () => {
     }
   }, [])
 
+  const handleGetQuote = () => {
+    // Navigate to contact page
+    navigate('/contact')
+  }
+
   return (
     <section ref={heroRef} id="home" className="relative h-[60vh] min-h-[500px] md:min-h-[600px] flex items-center justify-center overflow-hidden">
       {/* Background - Keep original with overlay */}
@@ -53,7 +60,7 @@ const Hero = () => {
           className="max-w-4xl mx-auto px-2"
         >
           <motion.h1 
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight font-display"
+            className="text-3xl font-alice sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight "
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.2, type: "spring", stiffness: 100 }}
@@ -64,7 +71,7 @@ const Hero = () => {
           </motion.h1>
           
           <motion.p 
-            className="text-lg sm:text-xl md:text-2xl text-gray-200 mb-8 sm:mb-12 leading-relaxed max-w-3xl mx-auto"
+            className="text-lg sm:text-xl md:text-2xl text-gray-200 mb-8 sm:mb-12 leading-relaxed max-w-3xl mx-aut font-alegreya"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
@@ -85,6 +92,7 @@ const Hero = () => {
                 boxShadow: "0 0 20px rgba(255, 107, 157, 0.5)"
               }}
               whileTap={{ scale: 0.95 }}
+              onClick={handleGetQuote}
             >
               Get Free Quote
             </motion.button>
@@ -95,7 +103,7 @@ const Hero = () => {
       {/* Decorative elements - subtle and minimal */}
       <div className="absolute bottom-10 left-4 w-16 h-16 border-2 border-white/20 rounded-full"></div>
       <div className="absolute top-1/4 right-6 w-10 h-10 border border-white/15 rounded-full"></div>
-      <div className="absolute top-10 left-1/4 w-8 h-8 border border-white/10 rounded-full"></div>
+      <div className="absolute top-10 left-1/4 w-8 h-8 border border-white/10 rounded-full "></div>
     </section>
   )
 }

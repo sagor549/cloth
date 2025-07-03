@@ -46,7 +46,7 @@ const BrandSections = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="section-title text-dark mb-6 font-display">
+          <h2 className="section-title text-dark mb-6 ">
             Wear Your Brand
           </h2>
           <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
@@ -80,7 +80,7 @@ const BrandSections = () => {
               </div>
               
               <div className="flex-1 space-y-6">
-                <h3 className="text-3xl md:text-4xl font-bold text-dark font-display">
+                <h3 className="text-3xl md:text-4xl font-bold text-dark font-alegreya">
                   {section.title}
                 </h3>
                 <p className="text-lg text-gray-600 leading-relaxed">

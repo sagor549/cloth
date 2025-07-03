@@ -28,7 +28,10 @@ export default {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         display: ['Space Grotesk', 'sans-serif'],
         body: ['Poppins', 'sans-serif'],
+        alice: ['Alice', 'serif'],
+        alegreya: ['Alegreya Sans', 'sans-serif'],
       },
+      
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',
         'fade-in-up': 'fadeInUp 0.6s ease-out',

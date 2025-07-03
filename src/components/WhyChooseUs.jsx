@@ -43,7 +43,7 @@ const WhyChooseUs = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="section-title text-dark mb-6 font-display">
+          <h2 className="section-title text-dark mb-6 ">
             WHY CHOOSE US
           </h2>
         </motion.div>
@@ -69,7 +69,7 @@ const WhyChooseUs = () => {
                 <div className="flex-shrink-0 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
                   <Check className="w-5 h-5 text-white" />
                 </div>
-                <span className="text-xl font-medium text-gray-800 font-handwriting">{feature}</span>
+                <span className="text-xl font-medium text-gray-800 font-handwriting font-alegreya">{feature}</span>
               </motion.div>
             ))}
           </motion.div>

@@ -70,7 +70,7 @@ const Header = () => {
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
                 <Phone className="w-5 h-5 text-coral" />
-                <span className='text-base font-medium'>905-237-1464</span>
+                <span className='text-base font-medium font-alegreya'>905-237-1464</span>
               </motion.div>
             </div>
           </motion.div>
@@ -80,12 +80,12 @@ const Header = () => {
       {/* Main Header - Positioned closer to top */}
       <motion.header
         className={`sticky top-0 z-50 bg-white border-b border-gray-100 transition-all duration-300 ${
-          isScrolled ? 'py-2 shadow-md' : 'md:py-3 py-3'  // Reduced vertical padding
+          isScrolled ? 'py-1 shadow-md' : 'md:py-1 py-1'  // Reduced vertical padding
         }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        style={{ marginTop: isScrolled ? '0' : '-0.25rem' }}  // Pulls header up slightly
+        style={{ marginTop: isScrolled ? '0' : '-0.5rem' }}  // Increased negative margin
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Desktop Navigation - All items equally spaced */}
@@ -132,7 +132,7 @@ const Header = () => {
                   src="/logo.png" 
                   alt="Merchandise Logo" 
                   className={`object-contain transition-all duration-300 ${
-                    isScrolled ? 'h-16' : 'h-20'
+                    isScrolled ? 'h-20' : 'h-24'  // Increased logo size
                   }`}
                   whileHover={{ rotate: 360 }}
                   transition={{ duration: 0.6 }}
@@ -170,7 +170,7 @@ const Header = () => {
             ))}
           </div>
 
-          {/* Mobile Header */}
+          {/* Mobile Header - Fixed centering */}
           <div className="lg:hidden flex items-center justify-between w-full">
             {/* Mobile Menu Button - Increased size */}
             <motion.button
@@ -186,33 +186,35 @@ const Header = () => {
                 transition={{ duration: 0.5 }}
               >
                 {isMobileMenuOpen ? (
-                  <X className="w-9 h-9" />  // Increased from w-7 h-7
+                  <X className="w-9 h-9" />
                 ) : (
-                  <Menu className="w-9 h-9" />  // Increased from w-7 h-7
+                  <Menu className="w-9 h-9" />
                 )}
               </motion.div>
             </motion.button>
             
-            {/* Mobile Logo - Made larger */}
-            <motion.div 
-              className="flex-shrink-0"
-              initial={{ scale: 0, rotate: -180 }}
-              animate={{ scale: 1, rotate: 0 }}
-              transition={{ duration: 0.8, delay: 0.3, type: "spring", stiffness: 100 }}
-            >
-              <Link to="/" onClick={scrollToTop} className="flex items-center">
-                <motion.img 
-                  src="/logo.png" 
-                  alt="Merchandise Logo" 
-                  className={`object-contain transition-all duration-300 ${
-                    isScrolled ? 'h-16' : 'h-20'
-                  }`}
-                />
-              </Link>
-            </motion.div>
+            {/* Centered Mobile Logo - Made larger */}
+            <div className="flex-grow flex justify-center"> {/* Centering container */}
+              <motion.div 
+                className="flex-shrink-0"
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ duration: 0.8, delay: 0.3, type: "spring", stiffness: 100 }}
+              >
+                <Link to="/" onClick={scrollToTop} className="flex items-center">
+                  <motion.img 
+                    src="/logo.png" 
+                    alt="Merchandise Logo" 
+                    className={`object-contain transition-all duration-300 ${
+                      isScrolled ? 'h-20' : 'h-24'  // Increased logo size
+                    }`}
+                  />
+                </Link>
+              </motion.div>
+            </div>
             
-            {/* Placeholder for spacing */}
-            <div className="w-9"></div>
+            {/* Placeholder for spacing - Matches menu button width */}
+            <div className="w-[52px]"></div> {/* Calculated: button width (w-9 = 2.25rem) + padding (p-2 = 0.5rem) */}
           </div>
 
           {/* Mobile Menu */}

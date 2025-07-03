@@ -9,6 +9,7 @@ import WhyChooseUs from './components/WhyChooseUs'
 import Testimonials from './components/Testimonials'
 import Footer from './components/Footer'
 import './index.css'
+import CTASection from './components/CTASection'
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <BrandSections />
         <WhyChooseUs />
         <Testimonials />
+        <CTASection/>
       </main>
       <Footer />
     </div>

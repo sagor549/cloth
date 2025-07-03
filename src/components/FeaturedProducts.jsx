@@ -101,7 +101,7 @@ const FeaturedProducts = () => {
           viewport={{ once: true }}
           className="text-center mb-12 md:mb-16"
         >
-          <h2 className="section-title text-dark mb-4 font-display">
+          <h2 className="section-title text-dark mb-4 ">
             Featured Products
           </h2>
         </motion.div>
@@ -150,8 +150,8 @@ const FeaturedProducts = () => {
                   {/* Hover Overlay */}
                   <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                     <div className="text-center text-white p-2 sm:p-3 md:p-4">
-                      <h3 className="text-xs sm:text-sm md:text-base font-bold mb-1 md:mb-2 font-display">{product.name}</h3>
-                      <p className="text-sm md:text-base font-semibold text-coral">Starting at {product.price}</p>
+                      <h3 className="text-xs sm:text-sm md:text-base font-bold mb-1 md:mb-2 font-alice">{product.name}</h3>
+                      <p className="text-sm md:text-base font-semibold text-coral font-alegreya">Starting at {product.price}</p>
                     </div>
                   </div>
                 </motion.div>

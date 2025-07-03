@@ -95,7 +95,7 @@ const Testimonials = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="section-title text-dark mb-12 font-display">
+          <h2 className="section-title text-dark mb-12 ">
             What People Are Saying
           </h2>
           
@@ -127,10 +127,10 @@ const Testimonials = () => {
                     <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
                   ))}
                 </div>
-                <p className="text-gray-600 mb-6 font-handwriting text-lg">"{testimonial.text}"</p>
+                <p className="text-gray-600 mb-6 font-handwriting text-lg font-alegreya">"{testimonial.text}"</p>
                 <div>
-                  <p className="font-semibold text-dark text-lg">{testimonial.name}</p>
-                  <p className="text-sm text-gray-500">{testimonial.company}</p>
+                  <p className="font-semibold text-dark text-lg font-alice">{testimonial.name}</p>
+                  <p className="text-sm text-gray-500 font-alegreya">{testimonial.company}</p>
                 </div>
               </motion.div>
             ))}
@@ -146,7 +146,7 @@ const Testimonials = () => {
           viewport={{ once: true }}
           className="text-center pt-16 border-t border-gray-200"
         >
-          <h3 className="text-2xl md:text-3xl font-bold text-dark mb-12 font-display">
+          <h3 className="text-2xl md:text-5xl font-bold text-dark mb-12 font-alegreya">
             Proven. Trusted. Delivered.
           </h3>
           
@@ -160,7 +160,7 @@ const Testimonials = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
               >
-                <div className="text-4xl md:text-5xl font-bold text-dark mb-2 font-display">
+                <div className="text-4xl md:text-5xl font-bold text-dark mb-2 font-alegreya">
                   {formatNumber(animatedStats[index], stat.number)}
                 </div>
                 <div className="text-gray-600 font-medium font-handwriting text-lg">{stat.label}</div>

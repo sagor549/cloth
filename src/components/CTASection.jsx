@@ -8,7 +8,7 @@ const CTASection = () => {
       <div 
         className="absolute inset-0 bg-cover bg-center z-0"
         style={{ 
-          backgroundImage: "url('/bgck.jpg')",
+          backgroundImage: "url('/bgf.jpg')",
           backgroundBlendMode: "multiply",
           backgroundColor: "rgba(0,0,0,0.4)"
         }}

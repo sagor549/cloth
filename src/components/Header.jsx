@@ -62,7 +62,7 @@ const Header = () => {
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
           >
-            <div className="max-w-8xl mx-auto flex justify-end px-4">
+            <div className="max-w-7xl mx-auto flex justify-end px-4">
               <motion.div 
                 className="flex items-center space-x-2 text-sm font-medium py-1"
                 initial={{ scale: 0 }}
@@ -87,7 +87,7 @@ const Header = () => {
         transition={{ duration: 0.8, ease: "easeOut" }}
         style={{ marginTop: isScrolled ? '0' : '-0.5rem' }}  // Increased negative margin
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden"> {/* Added overflow-hidden */}
           {/* Desktop Navigation - All items equally spaced */}
           <div className="hidden lg:flex items-center justify-between w-full">
             {navItems.slice(0, 3).map((item, index) => (
@@ -119,7 +119,7 @@ const Header = () => {
               </motion.div>
             ))}
             
-            {/* Logo - Centered with equal spacing */}
+            {/* Logo - Centered with equal spacing - ORIGINAL SIZE */}
             <motion.div 
               className="flex-shrink-0 mx-2"
               initial={{ scale: 0, rotate: -180 }}
@@ -132,7 +132,7 @@ const Header = () => {
                   src="/logo.png" 
                   alt="Merchandise Logo" 
                   className={`object-contain transition-all duration-300 ${
-                    isScrolled ? 'h-20' : 'h-24'  // Increased logo size
+                    isScrolled ? 'h-20' : 'h-24'  // Original logo size
                   }`}
                   whileHover={{ rotate: 360 }}
                   transition={{ duration: 0.6 }}
@@ -193,8 +193,8 @@ const Header = () => {
               </motion.div>
             </motion.button>
             
-            {/* Centered Mobile Logo - Made larger */}
-            <div className="flex-grow flex justify-center"> {/* Centering container */}
+            {/* Centered Mobile Logo - ORIGINAL SIZE */}
+            <div className="flex-grow flex justify-center overflow-hidden"> {/* Added overflow-hidden */}
               <motion.div 
                 className="flex-shrink-0"
                 initial={{ scale: 0, rotate: -180 }}
@@ -206,7 +206,7 @@ const Header = () => {
                     src="/logo.png" 
                     alt="Merchandise Logo" 
                     className={`object-contain transition-all duration-300 ${
-                      isScrolled ? 'h-20' : 'h-24'  // Increased logo size
+                      isScrolled ? 'h-20' : 'h-24'  // Original logo size
                     }`}
                   />
                 </Link>

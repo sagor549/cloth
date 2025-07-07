@@ -10,8 +10,6 @@ const FeaturedProducts = () => {
   const [currentPage, setCurrentPage] = useState(0)
   const sectionRef = useRef(null)
 
-  
-
   const products = [
     {
       name: 'Hoodies & Zippers',
@@ -92,7 +90,11 @@ const FeaturedProducts = () => {
   }
 
   return (
-    <section ref={sectionRef} id="products" className="py-16 md:py-20 bg-white parallax-section">
+    <section 
+      ref={sectionRef} 
+      id="products" 
+      className="py-16 md:py-20 bg-white overflow-hidden" // Added overflow-hidden
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -107,51 +109,54 @@ const FeaturedProducts = () => {
         </motion.div>
 
         <div className="relative">
-          {/* Navigation Arrows */}
+          {/* Navigation Arrows - Fixed positioning */}
           {totalPages > 1 && (
             <>
               <button
                 onClick={prevPage}
-                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-2 hover:bg-gray-50 transition-colors duration-200"
+                className="absolute -left-2 sm:left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-2 hover:bg-gray-50 transition-colors duration-200"
                 aria-label="Previous products"
               >
-                <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
+                <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
               </button>
               
               <button
                 onClick={nextPage}
-                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-2 hover:bg-gray-50 transition-colors duration-200"
+                className="absolute -right-2 sm:right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-2 hover:bg-gray-50 transition-colors duration-200"
                 aria-label="Next products"
               >
-                <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
+                <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
               </button>
             </>
           )}
 
-          {/* Product Grid - 2x3 grid with reduced height */}
-          <div className="px-10 sm:px-12">
+          {/* Product Grid - Fixed padding and overflow */}
+          <div className="px-4 sm:px-6 md:px-10 lg:px-12"> {/* Reduced padding on mobile */}
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 lg:gap-6">
               {getCurrentProducts().map((product, index) => (
                 <motion.div
                   key={`${currentPage}-${index}`}
-                  className="group relative overflow-hidden rounded-lg md:rounded-xl shadow-md md:shadow-lg cursor-pointer h-48 sm:h-56 md:h-64"
+                  className="group relative overflow-hidden rounded-lg md:rounded-xl shadow-md md:shadow-lg cursor-pointer h-40 sm:h-56 md:h-64" // Slightly reduced height on mobile
                   initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   viewport={{ once: true }}
                   whileHover={{ scale: 1.02 }}
                 >
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-full object-cover"
-                  />
+                  {/* Image with overflow containment */}
+                  <div className="w-full h-full overflow-hidden">
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
                   
                   {/* Hover Overlay */}
                   <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                     <div className="text-center text-white p-2 sm:p-3 md:p-4">
                       <h3 className="text-xs sm:text-sm md:text-base font-bold mb-1 md:mb-2 font-alice">{product.name}</h3>
-                      <p className="text-sm md:text-base font-semibold text-coral font-alegreya">Starting at {product.price}</p>
+                      <p className="text-xs sm:text-sm md:text-base font-semibold text-coral font-alegreya">Starting at {product.price}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -159,19 +164,21 @@ const FeaturedProducts = () => {
             </div>
           </div>
 
-          {/* Page Indicators */}
+          {/* Page Indicators - Fixed for many pages */}
           {totalPages > 1 && (
-            <div className="flex justify-center mt-6 md:mt-8 space-x-2">
-              {Array.from({ length: totalPages }).map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentPage(index)}
-                  className={`w-2.5 h-2.5 md:w-3 md:h-3 rounded-full transition-colors duration-200 ${
-                    index === currentPage ? 'bg-coral' : 'bg-gray-300'
-                  }`}
-                  aria-label={`Go to page ${index + 1}`}
-                />
-              ))}
+            <div className="flex justify-center mt-6 md:mt-8 overflow-x-auto py-2 max-w-full mx-auto">
+              <div className="flex space-x-2 px-2">
+                {Array.from({ length: totalPages }).map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentPage(index)}
+                    className={`min-w-[10px] min-h-[10px] w-2.5 h-2.5 md:w-3 md:h-3 rounded-full transition-colors duration-200 ${
+                      index === currentPage ? 'bg-coral' : 'bg-gray-300'
+                    }`}
+                    aria-label={`Go to page ${index + 1}`}
+                  />
+                ))}
+              </div>
             </div>
           )}
         </div>

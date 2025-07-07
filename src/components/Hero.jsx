@@ -39,7 +39,11 @@ const Hero = () => {
   }
 
   return (
-    <section ref={heroRef} id="home" className="relative h-[60vh] min-h-[500px] md:min-h-[600px] flex items-center justify-center overflow-hidden">
+    <section 
+      ref={heroRef} 
+      id="home" 
+      className="relative h-[60vh] min-h-[500px] md:min-h-[600px] flex items-center justify-center overflow-hidden"
+    >
       {/* Background - Keep original with overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-dark via-gray-800 to-gray-900">
         <div className="absolute inset-0 bg-black/90"></div>
@@ -71,7 +75,7 @@ const Hero = () => {
           </motion.h1>
           
           <motion.p 
-            className="text-lg sm:text-xl md:text-2xl text-gray-200 mb-8 sm:mb-12 leading-relaxed max-w-3xl mx-aut font-alegreya"
+            className="text-lg sm:text-xl md:text-2xl text-gray-200 mb-8 sm:mb-12 leading-relaxed max-w-3xl mx-auto font-alegreya" // Fixed typo: mx-aut -> mx-auto
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
@@ -100,10 +104,7 @@ const Hero = () => {
         </motion.div>
       </div>
 
-      {/* Decorative elements - subtle and minimal */}
-      <div className="absolute bottom-10 left-4 w-16 h-16 border-2 border-white/20 rounded-full"></div>
-      <div className="absolute top-1/4 right-6 w-10 h-10 border border-white/15 rounded-full"></div>
-      <div className="absolute top-10 left-1/4 w-8 h-8 border border-white/10 rounded-full "></div>
+      
     </section>
   )
 }

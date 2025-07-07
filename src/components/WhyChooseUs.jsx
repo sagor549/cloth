@@ -9,8 +9,6 @@ gsap.registerPlugin(ScrollTrigger)
 const WhyChooseUs = () => {
   const sectionRef = useRef(null)
 
-  
-
   const features = [
     'High-Quality Printing & Embroidery',
     'No Minimum Orders',
@@ -34,7 +32,11 @@ const WhyChooseUs = () => {
   ]
 
   return (
-    <section ref={sectionRef} id="about" className="py-16 bg-white parallax-section">
+    <section 
+      ref={sectionRef} 
+      id="about" 
+      className="py-16 bg-white overflow-hidden" // Added overflow-hidden here
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -43,7 +45,7 @@ const WhyChooseUs = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="section-title text-dark mb-6 ">
+          <h2 className="section-title text-dark mb-6">
             WHY CHOOSE US
           </h2>
         </motion.div>
@@ -74,7 +76,7 @@ const WhyChooseUs = () => {
             ))}
           </motion.div>
 
-          {/* Large Featured Image */}
+          {/* Large Featured Image - Fixed shadow overflow */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -82,12 +84,14 @@ const WhyChooseUs = () => {
             viewport={{ once: true }}
             className="relative"
           >
-            <div className="aspect-square rounded-3xl overflow-hidden shadow-2xl">
-              <img
-                src="https://images.pexels.com/photos/8532616/pexels-photo-8532616.jpeg?auto=compress&cs=tinysrgb&w=800"
-                alt="Custom merchandise showcase"
-                className="w-full h-full object-cover"
-              />
+            <div className="overflow-hidden rounded-3xl shadow-2xl"> {/* Moved overflow-hidden here */}
+              <div className="aspect-square">
+                <img
+                  src="https://images.pexels.com/photos/8532616/pexels-photo-8532616.jpeg?auto=compress&cs=tinysrgb&w=800"
+                  alt="Custom merchandise showcase"
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </div>
           </motion.div>
         </div>
@@ -104,54 +108,58 @@ const WhyChooseUs = () => {
             Over 1,000,000+ Satisfied Customers
           </h3>
           
-          {/* Two rows of images - hide some on mobile */}
-          <div className="space-y-6">
-            {/* First row - 5 images, hide last 2 on mobile */}
-            <div className="grid grid-cols-3 md:grid-cols-5 gap-4 md:gap-6">
-              {customerImages.slice(0, 5).map((image, index) => (
-                <motion.div
-                  key={index}
-                  className={`aspect-square rounded-2xl overflow-hidden shadow-lg ${
-                    index >= 3 ? 'hidden md:block' : ''
-                  }`}
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.3 }}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  style={{ transitionDelay: `${index * 0.1}s` }}
-                >
-                  <img
-                    src={image}
-                    alt={`Customer showcase ${index + 1}`}
-                    className="w-full h-full object-cover"
-                  />
-                </motion.div>
-              ))}
-            </div>
-            
-            {/* Second row - 5 images, hide last 2 on mobile */}
-            <div className="grid grid-cols-3 md:grid-cols-5 gap-4 md:gap-6">
-              {customerImages.slice(5, 10).map((image, index) => (
-                <motion.div
-                  key={index + 5}
-                  className={`aspect-square rounded-2xl overflow-hidden shadow-lg ${
-                    index >= 3 ? 'hidden md:block' : ''
-                  }`}
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.3 }}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  style={{ transitionDelay: `${(index + 5) * 0.1}s` }}
-                >
-                  <img
-                    src={image}
-                    alt={`Customer showcase ${index + 6}`}
-                    className="w-full h-full object-cover"
-                  />
-                </motion.div>
-              ))}
+          {/* Wrapped in overflow-hidden container */}
+          <div className="overflow-hidden px-2"> {/* Added overflow-hidden and padding */}
+            <div className="space-y-6">
+              {/* First row - 5 images, hide last 2 on mobile */}
+              <div className="grid grid-cols-3 md:grid-cols-5 gap-3 md:gap-4 lg:gap-6"> {/* Reduced gap on mobile */}
+                {customerImages.slice(0, 5).map((image, index) => (
+                  <motion.div
+                    key={index}
+                    className={`${index >= 3 ? 'hidden md:block' : ''}`}
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.3 }}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    style={{ transitionDelay: `${index * 0.1}s` }}
+                  >
+                    {/* Added overflow-hidden wrapper */}
+                    <div className="overflow-hidden rounded-2xl shadow-lg aspect-square">
+                      <img
+                        src={image}
+                        alt={`Customer showcase ${index + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+              
+              {/* Second row - 5 images, hide last 2 on mobile */}
+              <div className="grid grid-cols-3 md:grid-cols-5 gap-3 md:gap-4 lg:gap-6"> {/* Reduced gap on mobile */}
+                {customerImages.slice(5, 10).map((image, index) => (
+                  <motion.div
+                    key={index + 5}
+                    className={`${index >= 3 ? 'hidden md:block' : ''}`}
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.3 }}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    style={{ transitionDelay: `${(index + 5) * 0.1}s` }}
+                  >
+                    {/* Added overflow-hidden wrapper */}
+                    <div className="overflow-hidden rounded-2xl shadow-lg aspect-square">
+                      <img
+                        src={image}
+                        alt={`Customer showcase ${index + 6}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </div>
         </motion.div>

@@ -28,9 +28,9 @@ const ContactPage = () => {
     setIsSubmitting(true);
     setSubmitError('');
 
-    const SERVICE_ID = 'service_0wx2eep';
-    const TEMPLATE_ID = 'template_mb4gtkv';
-    const PUBLIC_KEY = 'n8kbbJ3UfJSEn4FHD';
+    const SERVICE_ID = 'service_3y7mwuz';
+    const TEMPLATE_ID = 'template_a0ft9pq';
+    const PUBLIC_KEY = '6Ev23gj-s46IoCZGA';
 
     emailjs.init(PUBLIC_KEY);
 

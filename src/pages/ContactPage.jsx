@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Phone, Mail, MapPin, Clock, Send, Check } from 'lucide-react';
 import emailjs from 'emailjs-com';
@@ -6,6 +7,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 const ContactPage = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     user_name: '',
     user_email: '',
@@ -25,27 +27,25 @@ const ContactPage = () => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitError('');
-    
-    // Replace these with your actual EmailJS credentials
-    const SERVICE_ID = 'YOUR_SERVICE_ID';
-    const TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
-    const USER_ID = 'YOUR_USER_ID';
-    
-    emailjs.send(SERVICE_ID, TEMPLATE_ID, formData, USER_ID)
+
+    const SERVICE_ID = 'service_0wx2eep';
+    const TEMPLATE_ID = 'template_mb4gtkv';
+    const PUBLIC_KEY = 'n8kbbJ3UfJSEn4FHD';
+
+    emailjs.init(PUBLIC_KEY);
+
+    emailjs.send(SERVICE_ID, TEMPLATE_ID, formData)
       .then(() => {
         setIsSubmitting(false);
         setSubmitSuccess(true);
-        setFormData({ 
-          user_name: '', 
-          user_email: '', 
-          user_phone: '', 
-          user_message: '' 
+        setFormData({
+          user_name: '',
+          user_email: '',
+          user_phone: '',
+          user_message: ''
         });
-        
-        // Reset success message after 5 seconds
-        setTimeout(() => setSubmitSuccess(false), 5000);
       })
-      .catch(error => {
+      .catch((error) => {
         setIsSubmitting(false);
         setSubmitError('Failed to send message. Please try again.');
         console.error('Email sending error:', error);
@@ -57,8 +57,8 @@ const ContactPage = () => {
       <Header />
       
       <main className="">
-        {/* Form Section - At the Top */}
-        <section className="py-16 bg-gradient-to-br from-coral/10 via-teal/10 to-purple/10">
+        {/* Form Section */}
+        <section className="py-10 bg-gradient-to-br from-coral/10 via-teal/10 to-purple/10">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -68,7 +68,7 @@ const ContactPage = () => {
             >
               <div className="text-center mb-10">
                 <motion.h1 
-                  className="text-3xl md:text-4xl font-bold text-dark mb-4 font-display"
+                  className="text-3xl md:text-4xl font-bold text-dark mb-4 font-alice"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.2 }}
@@ -76,7 +76,7 @@ const ContactPage = () => {
                   Get a Free Quote
                 </motion.h1>
                 <motion.p 
-                  className="text-gray-600 max-w-2xl mx-auto"
+                  className="text-gray-600 max-w-2xl mx-auto font-alegreya"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.4 }}
@@ -95,9 +95,15 @@ const ContactPage = () => {
                     <Check className="w-8 h-8 text-green-600" />
                   </div>
                   <h3 className="text-xl font-bold text-green-800 mb-2">Thank You!</h3>
-                  <p className="text-green-700">
+                  <p className="text-green-700 mb-6">
                     Your message has been sent successfully. We'll contact you shortly.
                   </p>
+                  <button
+                    onClick={() => navigate('/')}
+                    className="px-6 py-3 bg-white border-2 border-green-500 text-green-700 font-semibold rounded-lg hover:bg-green-50 transition-colors duration-300 shadow-md hover:shadow-lg"
+                  >
+                    Back to Homepage
+                  </button>
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -107,6 +113,7 @@ const ContactPage = () => {
                       <input 
                         type="text" 
                         name="user_name"
+                        id="user_name"
                         required
                         value={formData.user_name}
                         onChange={handleChange}
@@ -120,6 +127,7 @@ const ContactPage = () => {
                       <input 
                         type="email" 
                         name="user_email"
+                        id="user_email"
                         required
                         value={formData.user_email}
                         onChange={handleChange}
@@ -134,6 +142,7 @@ const ContactPage = () => {
                     <input 
                       type="tel" 
                       name="user_phone"
+                      id="user_phone"
                       value={formData.user_phone}
                       onChange={handleChange}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-coral focus:border-transparent transition-all"
@@ -145,17 +154,18 @@ const ContactPage = () => {
                     <label htmlFor="user_message" className="block text-gray-700 mb-2 font-medium">Message *</label>
                     <textarea 
                       name="user_message"
+                      id="user_message"
                       required
                       rows={5}
                       value={formData.user_message}
                       onChange={handleChange}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-coral focus:border-transparent transition-all"
                       placeholder="Tell us about your project, quantities, timeline, etc..."
-                    ></textarea>
+                    />
                   </div>
                   
                   {submitError && (
-                    <div className="text-red-500 bg-red-50 p-3 rounded-lg">
+                    <div className="text-red-500 bg-red-50 p-3 rounded-lg border border-red-200">
                       {submitError}
                     </div>
                   )}
@@ -213,7 +223,7 @@ const ContactPage = () => {
           </div>
         </section>
 
-        {/* Contact Details Section - Below the Form */}
+        {/* Contact Details Section */}
         <section className="py-16 bg-white">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
@@ -223,7 +233,7 @@ const ContactPage = () => {
               className="text-center mb-16"
             >
               <motion.h2 
-                className="text-3xl md:text-4xl font-bold text-dark mb-4 font-display"
+                className="text-3xl md:text-4xl font-bold text-dark mb-4 font-alice"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
@@ -231,7 +241,7 @@ const ContactPage = () => {
                 Contact Information
               </motion.h2>
               <motion.p 
-                className="text-gray-600 max-w-2xl mx-auto"
+                className="text-gray-600 max-w-2xl mx-auto font-alegreya"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
@@ -307,7 +317,8 @@ const ContactPage = () => {
                 allowFullScreen 
                 loading="lazy" 
                 referrerPolicy="no-referrer-when-downgrade"
-              ></iframe>
+                title="Advanced Printing Location"
+              />
             </motion.div>
           </div>
         </section>

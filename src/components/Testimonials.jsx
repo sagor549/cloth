@@ -146,7 +146,7 @@ const Testimonials = () => {
           viewport={{ once: true }}
           className="text-center pt-16 border-t border-gray-200"
         >
-          <h3 className="text-2xl md:text-5xl font-bold text-dark mb-12 font-alegreya">
+          <h3 className=" font-bold text-dark mb-12 section-title">
             Proven. Trusted. Delivered.
           </h3>
           
@@ -163,7 +163,7 @@ const Testimonials = () => {
                 <div className="text-4xl md:text-5xl font-bold text-dark mb-2 font-alegreya">
                   {formatNumber(animatedStats[index], stat.number)}
                 </div>
-                <div className="text-gray-600 font-medium font-handwriting text-lg">{stat.label}</div>
+                <div className="text-gray-600 font-medium font-alegreya text-lg">{stat.label}</div>
               </motion.div>
             ))}
           </div>

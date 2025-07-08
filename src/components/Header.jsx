@@ -210,7 +210,7 @@ const Header = () => {
                     }`}
                   />
                 </Link>
-              </motion.div>
+              </motion.div> 
             </div>
             
             {/* Placeholder for spacing - Matches menu button width */}

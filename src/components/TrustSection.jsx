@@ -4,7 +4,7 @@ const TrustSection = () => {
   const sectionRef = useRef(null)
 
   const clients = [
-    { name: 'Client 1', logo: '/cloth/logos/logo1.png' },
+    { name: 'Client 1', logo: '/cloth/logo1.png' },
     { name: 'Client 5', logo: '/cloth/logo5.png' },
     { name: 'Client 7', logo: '/cloth/logo7.png' },
     { name: 'Client 8', logo: '/cloth/logo8.png' },

@@ -12,13 +12,13 @@ const PrintingMethods = () => {
     {
       name: 'Vinyl',
       description: 'A durable and vibrant option for simple, bold designs.',
-      frontImage: '/cloth/vin.png',
+      frontImage: '/cloth/dif.jpg',
       details: 'Perfect for logos, text, and simple graphics. Long-lasting and cost-effective for small quantities.'
     },
     {
       name: 'DTF',
       description: 'A high-resolution printing method that allows for full color designs.',
-      frontImage: '/cloth/dif.jpg',
+      frontImage: '/cloth/vin.png',
       details: 'Direct to Film printing offers vibrant colors and fine detail reproduction on various fabric types.'
     },
     {
@@ -30,7 +30,7 @@ const PrintingMethods = () => {
     {
       name: 'Embossing',
       description: 'A high-end technique that creates a raised, 3D effect on fabric.',
-      frontImage: '/cloth/emboo.jpg',
+      frontImage: '/cloth/embossed.jpg',
       details: 'Creates elegant raised designs that add sophistication and tactile appeal to your merchandise.'
     }
   ]
@@ -88,7 +88,7 @@ const PrintingMethods = () => {
 
               {/* Mobile overlay */}
               {clickedCard === index && (
-                <div className="md:hidden absolute inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-6 text-white text-center rounded-2xl z-10">
+                <div className="md:hidden absolute inset-0  backdrop-blur-sm flex items-center justify-center p-6 text-white text-center rounded-2xl z-10">
                   <div>
                     <h3 className="text-2xl font-bold mb-4 font-alice text-coral">{method.name}</h3>
                     <p className="text-lg leading-relaxed font-alegreya">{method.details}</p>

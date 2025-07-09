@@ -20,13 +20,13 @@ const BrandSections = () => {
     {
       title: 'Cause & Nonprofit Apparel',
       description: 'Wear your mission loud and proud. Create branded apparel that raises awareness, drives donations, and rallies support for your cause.',
-      image: 'cloth/per.png',
+      image: 'cloth/cause.jpg',
       reverse: false
     },
     {
       title: 'Retail & Custom Collections',
       description: 'Launch your own clothing line or limited edition drops. We help brands and entrepreneurs create high-quality apparel ready for retail or online sales.',
-      image: '/cloth/cause.jpg',
+      image: '/cloth/real.png',
       reverse: true
     }
   ]

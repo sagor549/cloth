@@ -19,11 +19,11 @@ const WhyChooseUs = () => {
     "cloth/satis3.jpg",
     "cloth/satis4.jpg",
     "cloth/satis5.jpg",
-    "cloth/sati10.jpg",
-    "cloth/sati7.jpg",
-    "cloth/sati8.jpg",
-    "cloth/sati9.jpg",
-    "cloth/sati6.jpg"
+    "cloth/s1.jpg",
+    "cloth/s2.jpg",
+    "cloth/s3.jpg",
+    "cloth/s4.jpg",
+    "cloth/s5.jpg"
   ]
 
   return (

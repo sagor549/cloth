@@ -58,7 +58,7 @@ const FeaturedProducts = () => {
     {
       name: 'Embroidered Crewnecks',
       price: '$16',
-      image: '/cloth/embossed.jpg'
+      image: '/cloth/embro1.jpg'
     },
     {
       name: 'Printed T-Shirts',
@@ -75,11 +75,7 @@ const FeaturedProducts = () => {
       price: '$30',
       image: '/cloth/uni.jpg'
     },
-    {
-      name: 'Socks & Footwear',
-      price: '$10',
-      image: '/cloth/sock.jpg'
-    },
+    
     {
       name: 'Bags ',
       price: '$20',
@@ -90,15 +86,11 @@ const FeaturedProducts = () => {
       price: '$20',
       image: '/cloth/jacket.jpg'
     },
-    {
-      name: 'Custom Sweatpants',
-      price: '$25',
-      image: '/cloth/swim.jpg'
-    },
+    
     {
       name: 'Custom Aprons',
       price: '$22',
-      image: '/cloth/apron.jpg'
+      image: '/cloth/apron1.jpg'
     }
   ]
 
@@ -163,7 +155,8 @@ const FeaturedProducts = () => {
             <div className={`grid ${
               isMobile 
                 ? 'grid-cols-2 gap-3' 
-                : 'grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-5'
+                // Changed to 4 columns for desktop
+                : 'grid-cols-4 gap-5'  
             }`}>
               {getCurrentProducts().map((product, index) => (
                 <motion.div
@@ -171,7 +164,7 @@ const FeaturedProducts = () => {
                   className="group relative overflow-hidden rounded-lg shadow-sm cursor-pointer"
                   whileHover={{ scale: 1.03 }}
                 >
-                  <div className="w-full pb-[125%] relative overflow-hidden">
+                  <div className="w-full pb-[97%] relative overflow-hidden">
                     <img
                       src={product.image}
                       alt={product.name}

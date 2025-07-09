@@ -24,16 +24,14 @@ const GalleryPage = () => {
     { type: 'image', category: 'Special g2', image: '/cloth/g2.jpg', title: 'Special Design ' },
     { type: 'image', category: 'Special g3', image: '/cloth/g3.jpg', title: 'Special Design' },
     
-    
-  
     { type: 'image', category: 'Special g5', image: '/cloth/s2.jpg', title: 'Special Design' },
     
-    // Video items
-    { type: 'video', category: 'Process', video: '/cloth/vid1.mp4', title: 'Production Process' },
-    { type: 'video', category: 'Showcase', video: '/cloth/vid2.mp4', title: 'Product Showcase' },
-    { type: 'video', category: 'Behind Scenes', video: '/cloth/vid3.mp4', title: 'Behind the Scenes' },
-    { type: 'video', category: 'Behind Scenes', video: '/cloth/vid4.mp4', title: 'Behind the Scenes' },
-    { type: 'video', category: 'Behind Scenes', video: '/cloth/vid5.mp4', title: 'Behind the Scenes' }
+    // Video items with thumbnails
+    { type: 'video', category: 'Process', video: '/cloth/vid1.mp4', thumbnail: '/cloth/vid1.png', title: 'Production Process' },
+    { type: 'video', category: 'Showcase', video: '/cloth/vid2.mp4', thumbnail: '/cloth/vid2.png', title: 'Product Showcase' },
+    { type: 'video', category: 'Behind Scenes', video: '/cloth/vid3.mp4', thumbnail: '/cloth/vid3.png', title: 'Behind the Scenes' },
+    { type: 'video', category: 'Behind Scenes', video: '/cloth/vid4.mp4', thumbnail: '/cloth/vid4.png', title: 'Behind the Scenes' },
+    { type: 'video', category: 'Behind Scenes', video: '/cloth/vid5.mp4', thumbnail: '/cloth/vid5.png', title: 'Behind the Scenes' }
   ];
 
   const openItem = (index) => {
@@ -138,15 +136,12 @@ const GalleryPage = () => {
                     />
                   ) : (
                     <div className="relative w-full h-full">
-                      <video
-                        className="w-full h-full object-cover opacity-70"
-                        muted
-                        playsInline
-                        disablePictureInPicture
-                        preload="metadata"
-                      >
-                        <source src={item.video} type="video/mp4" />
-                      </video>
+                      {/* Use thumbnail for videos */}
+                      <img
+                        src={item.thumbnail}
+                        alt={item.title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
                       <div className="absolute inset-0 flex items-center justify-center">
                         <div className="bg-black/30 rounded-full p-4">
                           <svg 

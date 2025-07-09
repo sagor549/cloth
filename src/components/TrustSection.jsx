@@ -9,19 +9,18 @@ const TrustSection = () => {
   const sectionRef = useRef(null)
 
   const clients = [
-    { name: 'Client 1', logo: '/logos/logo1.png' },
-    
-    
-    { name: 'Client 5', logo: '/logos/logo5.png' },
-    { name: 'Client 7', logo: '/logos/logo7.png' },
-    { name: 'Client 8', logo: '/logos/logo8.png' },
-    { name: 'Client 9', logo: '/logos/logo9.png' },
-    { name: 'Client 10', logo: '/logos/logo15.png' },
-    { name: 'Client 11', logo: '/logos/logo11.png' },
-    { name: 'Client 12', logo: '/logos/logo12.png' },
-    { name: 'Client 14', logo: '/logos/logo14.png' },
-    { name: 'Client 15', logo: '/logos/logo15.png' },
+    { name: 'Client 1', logo: '/cloth/logos/logo1.png' },
+    { name: 'Client 5', logo: '/cloth/logo5.png' },
+    { name: 'Client 7', logo: '/cloth/logo7.png' },
+    { name: 'Client 8', logo: '/cloth/logo8.png' },
+    { name: 'Client 9', logo: '/cloth/logo9.png' },
+    { name: 'Client 10', logo: '/cloth/logo15.png' },
+    { name: 'Client 11', logo: '/cloth/logo11.png' },
+    { name: 'Client 12', logo: '/cloth/logo12.png' },
+    { name: 'Client 14', logo: '/cloth/logo14.png' },
+    { name: 'Client 15', logo: '/cloth/logo15.png' },
   ];
+  
 
   return (
     <section ref={sectionRef} className="py-16 bg-light overflow-hidden parallax-section">

@@ -129,7 +129,7 @@ const Header = () => {
             >
               <Link to="/" onClick={scrollToTop} className="flex items-center">
                 <motion.img 
-                  src="/logo.png" 
+                  src="/cloth/logo.png" 
                   alt="Merchandise Logo" 
                   className={`object-contain transition-all duration-300 ${
                     isScrolled ? 'h-20' : 'h-24'  // Original logo size
@@ -203,7 +203,7 @@ const Header = () => {
               >
                 <Link to="/" onClick={scrollToTop} className="flex items-center">
                   <motion.img 
-                    src="/logo.png" 
+                    src="/cloth/logo.png" 
                     alt="Merchandise Logo" 
                     className={`object-contain transition-all duration-300 ${
                       isScrolled ? 'h-20' : 'h-24'  // Original logo size

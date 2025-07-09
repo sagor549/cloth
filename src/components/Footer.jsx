@@ -25,7 +25,7 @@ const Footer = () => {
                 {/* Logo container with white background */}
                 <div className=" rounded-full w-96  flex items-center justify-center p-0 overflow-hidden">
                   <img 
-                    src="/logo.png" 
+                    src="cloth/logo.png" 
                     alt="Advanced Printing Logo" 
                     className="w-96 object-contain"  // Fixed to fill white circle
                   />
@@ -69,11 +69,12 @@ const Footer = () => {
             <h3 className="text-2xl font-bold mb-6 font-alice border-b border-gray-700 pb-2">Explore</h3>
             <ul className="space-y-5">
               {[
-                { name: 'Home', href: '/' },
-                { name: 'Products', href: '/#products' },
-                { name: 'Services', href: '/#services' },
-                { name: 'Gallery', href: '/gallery' },
-                { name: 'Testimonials', href: '/#testimonials' },
+               { name: 'Home', href: '/' },
+               { name: 'Products', href: '/#products' },
+               { name: 'Services', href: '/#services' },
+               { name: 'About us', href: '/#about' },
+               { name: 'Gallery', href: '/gallery' },
+               { name: 'Contact us', href: '/contact' },
               ].map((item, index) => (
                 <motion.li 
                   key={index}

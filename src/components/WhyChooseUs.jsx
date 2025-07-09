@@ -19,16 +19,16 @@ const WhyChooseUs = () => {
   ]
 
   const customerImages = [
-    "/grid1.jpg",
-    "/grid5.jpg",
-    "/grid2.jpg",
-    "/grid4.jpg",
-    "/grid3.jpg",
-    "/grid6.jpg",
-    "/grid7.jpg",
-    "/grid8.jpg",
-    "/grid9.jpg",
-    "/grid10.jpg"
+    "cloth/satis1.jpg",
+    "cloth/satis2.jpg",
+    "cloth/satis3.jpg",
+    "cloth/satis4.jpg",
+    "cloth/satis5.jpg",
+    "cloth/sati10.jpg",
+    "cloth/sati7.jpg",
+    "cloth/sati8.jpg",
+    "cloth/sati9.jpg",
+    "cloth/sati6.jpg"
   ]
 
   return (
@@ -87,7 +87,7 @@ const WhyChooseUs = () => {
             <div className="overflow-hidden rounded-3xl shadow-2xl"> {/* Moved overflow-hidden here */}
               <div className="aspect-square">
                 <img
-                  src="https://images.pexels.com/photos/8532616/pexels-photo-8532616.jpeg?auto=compress&cs=tinysrgb&w=800"
+                  src="/cloth/g5.jpg"
                   alt="Custom merchandise showcase"
                   className="w-full h-full object-cover"
                 />

@@ -50,8 +50,9 @@ const Hero = () => {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
           style={{
-            backgroundImage: 'url(https://images.pexels.com/photos/996329/pexels-photo-996329.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)'
+            backgroundImage: 'url(/cloth/bg.webp)'
           }}
+          
         ></div>
       </div>
 

@@ -13,25 +13,25 @@ const BrandSections = () => {
     {
       title: 'Corporate & Event Apparel',
       description: 'Unify your employees and stand out at trade shows or company events with custom hoodies, tees, polos, and more designed to boost team spirit and brand visibility.',
-      image: 'https://images.pexels.com/photos/7679720/pexels-photo-7679720.jpeg?auto=compress&cs=tinysrgb&w=800',
+      image: '/cloth/cor.jpg',
       reverse: false
     },
     {
       title: 'Creator & Personal Branding Gear',
       description: 'Build your community and make a lasting impression with custom apparel tailored for influencers, freelancers, coaches, and entrepreneurs who want to look and feel the part.',
-      image: 'https://images.pexels.com/photos/1040945/pexels-photo-1040945.jpeg?auto=compress&cs=tinysrgb&w=800',
+      image: '/cloth/personal.jpg',
       reverse: true
     },
     {
       title: 'Cause & Nonprofit Apparel',
       description: 'Wear your mission loud and proud. Create branded apparel that raises awareness, drives donations, and rallies support for your cause.',
-      image: 'https://images.pexels.com/photos/8532616/pexels-photo-8532616.jpeg?auto=compress&cs=tinysrgb&w=800',
+      image: 'cloth/per.png',
       reverse: false
     },
     {
       title: 'Retail & Custom Collections',
       description: 'Launch your own clothing line or limited edition drops. We help brands and entrepreneurs create high-quality apparel ready for retail or online sales.',
-      image: 'https://images.pexels.com/photos/996329/pexels-photo-996329.jpeg?auto=compress&cs=tinysrgb&w=800',
+      image: '/cloth/cause.jpg',
       reverse: true
     }
   ]

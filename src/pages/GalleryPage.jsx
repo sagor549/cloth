@@ -9,54 +9,84 @@ const GalleryPage = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   
   
-    const galleryItems = [
-      {
-        category: 'T-Shirts',
-        image: 'https://images.pexels.com/photos/8532579/pexels-photo-8532579.jpeg?auto=compress&cs=tinysrgb&w=800',
-        title: 'Custom Printed T-Shirts'
-      },
-      {
-        category: 'Hoodies',
-        image: 'https://images.pexels.com/photos/996329/pexels-photo-996329.jpeg?auto=compress&cs=tinysrgb&w=800',
-        title: 'Embroidered Hoodies'
-      },
-      {
-        category: 'Caps',
-        image: 'https://images.pexels.com/photos/1040945/pexels-photo-1040945.jpeg?auto=compress&cs=tinysrgb&w=800',
-        title: 'Branded Caps'
-      },
-      {
-        category: 'Workwear',
-        image: 'https://images.pexels.com/photos/7679720/pexels-photo-7679720.jpeg?auto=compress&cs=tinysrgb&w=800',
-        title: 'Corporate Uniforms'
-      },
-      {
-        category: 'Embroidery',
-        image: 'https://images.pexels.com/photos/8532616/pexels-photo-8532616.jpeg?auto=compress&cs=tinysrgb&w=800',
-        title: 'Premium Embroidery'
-      },
-      {
-        category: 'Accessories',
-        image: 'https://images.pexels.com/photos/1040945/pexels-photo-1040945.jpeg?auto=compress&cs=tinysrgb&w=800',
-        title: 'Custom Accessories'
-      },
-      {
-        category: 'Team Wear',
-        image: 'https://images.pexels.com/photos/8532579/pexels-photo-8532579.jpeg?auto=compress&cs=tinysrgb&w=800',
-        title: 'Sports Team Apparel'
-      },
-      {
-        category: 'Event Merch',
-        image: 'https://images.pexels.com/photos/996329/pexels-photo-996329.jpeg?auto=compress&cs=tinysrgb&w=800',
-        title: 'Event Merchandise'
-      },
-      {
-        category: 'Promotional',
-        image: 'https://images.pexels.com/photos/7679720/pexels-photo-7679720.jpeg?auto=compress&cs=tinysrgb&w=800',
-        title: 'Promotional Items'
-      }
-    
+  const galleryItems = [
+    {
+      category: 'Apron',
+      image: '/cloth/apron.jpg',
+      title: 'Custom Aprons'
+    },
+    {
+      category: 'Bag',
+      image: '/cloth/bag.jpg',
+      title: 'Branded Bags'
+    },
+    {
+      category: 'Caps',
+      image: '/cloth/caps.jpg',
+      title: 'Custom Caps'
+    },
+    {
+      category: 'Corporate Event',
+      image: '/cloth/corporate_event.jpg',
+      title: 'Corporate Event Wear'
+    },
+    {
+      category: 'Embossed',
+      image: '/cloth/embossed.jpg',
+      title: 'Embossed Design'
+    },
+    {
+      category: 'Hoodie',
+      image: '/cloth/hoodie.jpg',
+      title: 'Stylish Hoodies'
+    },
+    {
+      category: 'Jacket',
+      image: '/cloth/jacket.jpg',
+      title: 'Custom Jackets'
+    },
+    {
+      category: 'Personal Branding',
+      image: '/cloth/personal_branding.jpg',
+      title: 'Personal Branding Apparel'
+    },
+    {
+      category: 'Personal',
+      image: '/cloth/personal.jpg',
+      title: 'Personalized Products'
+    },
+    {
+      category: 'Embroidered',
+      image: '/cloth/embro.jpg',
+      title: 'Premium Embroidery'
+    },
+    {
+      category: 'Special g1',
+      image: '/cloth/g1.jpg',
+      title: 'Special Design g1'
+    },
+    {
+      category: 'Special g2',
+      image: '/cloth/g2.jpg',
+      title: 'Special Design g2'
+    },
+    {
+      category: 'Special g3',
+      image: '/cloth/g3.jpg',
+      title: 'Special Design g3'
+    },
+    {
+      category: 'Special g4',
+      image: '/cloth/g4.jpg',
+      title: 'Special Design g4'
+    },
+    {
+      category: 'Special g5',
+      image: '/cloth/g5.jpg',
+      title: 'Special Design g5'
+    }
   ];
+   
 
   const openImage = (index) => {
     setSelectedImage(index);
@@ -79,10 +109,10 @@ const GalleryPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white font-alice">
+    <div className="min-h-screen bg-white ">
       <Header />
       
-      <main className="">
+      <main className="font-alice">
         {/* Hero Section */}
         <section className="py-20 bg-gradient-to-br from-coral/10 to-teal/10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

@@ -15,25 +15,25 @@ const PrintingMethods = () => {
     {
       name: 'Vinyl',
       description: 'A durable and vibrant option for simple, bold designs.',
-      frontImage: 'https://images.pexels.com/photos/996329/pexels-photo-996329.jpeg?auto=compress&cs=tinysrgb&w=400',
+      frontImage: '/cloth/vin.png',
       details: 'Perfect for logos, text, and simple graphics. Long-lasting and cost-effective for small quantities.'
     },
     {
       name: 'DTF',
       description: 'A high-resolution printing method that allows for full color designs.',
-      frontImage: 'https://images.pexels.com/photos/8532616/pexels-photo-8532616.jpeg?auto=compress&cs=tinysrgb&w=400',
+      frontImage: '/cloth/dif.jpg',
       details: 'Direct to Film printing offers vibrant colors and fine detail reproduction on various fabric types.'
     },
     {
       name: 'Embroidery',
       description: 'A timeless and textured customization method to add premium look.',
-      frontImage: 'https://images.pexels.com/photos/8532579/pexels-photo-8532579.jpeg?auto=compress&cs=tinysrgb&w=400',
+      frontImage: '/cloth/embro.jpg',
       details: 'Professional embroidery adds texture and premium feel to your garments. Perfect for corporate branding.'
     },
     {
       name: 'Embossing',
       description: 'A high-end technique that creates a raised, 3D effect on fabric.',
-      frontImage: 'https://images.pexels.com/photos/1040945/pexels-photo-1040945.jpeg?auto=compress&cs=tinysrgb&w=400',
+      frontImage: '/cloth/emboo.jpg',
       details: 'Creates elegant raised designs that add sophistication and tactile appeal to your merchandise.'
     }
   ]

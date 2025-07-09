@@ -1,14 +1,9 @@
 import { motion } from 'framer-motion'
-import { useEffect, useRef } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
+import { useRef } from 'react'
 
 const BrandSections = () => {
   const sectionRef = useRef(null)
 
-  
   const sections = [
     {
       title: 'Corporate & Event Apparel',
@@ -39,13 +34,7 @@ const BrandSections = () => {
   return (
     <section ref={sectionRef} className="py-16 bg-white parallax-section">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
+        <motion.div className="text-center mb-16">
           <h2 className="section-title text-dark mb-6 ">
             Wear Your Brand
           </h2>
@@ -56,14 +45,10 @@ const BrandSections = () => {
         </motion.div>
 
         <div className="space-y-20">
-          {sections.map((section, index) => (
+          {sections.map((section) => (
             <motion.div
               key={section.title}
               className={`flex flex-col ${section.reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-12`}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
             >
               <div className="flex-1">
                 <motion.div

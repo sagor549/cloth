@@ -7,30 +7,24 @@ const Footer = () => {
   
   return (
     <footer className="bg-gradient-to-b from-gray-900 to-gray-950 text-white pt-16 pb-12 border-t border-gray-800 relative overflow-hidden">
-      {/* Decorative elements */}
       <div className="absolute bottom-0 left-0 right-0 h-2 bg-gradient-to-r from-coral via-purple-500 to-blue-500 opacity-20"></div>
       <div className="absolute bottom-20 left-10 w-20 h-20 bg-coral/10 rounded-full blur-xl"></div>
       <div className="absolute top-10 right-10 w-24 h-24 bg-purple-500/10 rounded-full blur-xl"></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-          {/* Brand Column - Larger Logo */}
+          {/* Brand Column */}
           <div className="flex flex-col items-center md:items-start">
             <Link to="/" className="mb-6">
-              <motion.div 
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.8 }}
-                className="flex items-center justify-center"
-              >
-                {/* Logo container with white background */}
-                <div className=" rounded-full w-96  flex items-center justify-center p-0 overflow-hidden">
+              <div className="flex items-center justify-center">
+                <div className="rounded-full w-96 flex items-center justify-center p-0 overflow-hidden">
                   <img 
                     src="cloth/logo.png" 
                     alt="Advanced Printing Logo" 
-                    className="w-96 object-contain"  // Fixed to fill white circle
+                    className="w-96 object-contain"
                   />
                 </div>
-              </motion.div>
+              </div>
             </Link>
             
             <p className="text-gray-400 mb-8 text-center md:text-left max-w-md font-alegreya text-lg leading-relaxed">
@@ -38,33 +32,28 @@ const Footer = () => {
               printing, embroidery, and promotional products.
             </p>
             
-            {/* Social Links */}
             <div className="flex space-x-6">
-              <motion.a
+              <a
                 href="mailto:info@advancedprinting.org"
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ y: -5 }}
-                whileTap={{ scale: 0.9 }}
                 className="bg-coral/20 hover:bg-coral/30 w-14 h-14 rounded-full flex items-center justify-center transition-all duration-300 shadow-lg shadow-coral/10"
               >
                 <Mail className="w-6 h-6 text-white" />
-              </motion.a>
+              </a>
               
-              <motion.a
+              <a
                 href="https://www.instagram.com/ap.merchandise/"
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ y: -5 }}
-                whileTap={{ scale: 0.9 }}
                 className="bg-gradient-to-r from-purple-500 to-pink-500 hover:to-pink-600 w-14 h-14 rounded-full flex items-center justify-center transition-all duration-300 shadow-lg shadow-purple-500/20"
               >
                 <Instagram className="w-6 h-6 text-white" />
-              </motion.a>
+              </a>
             </div>
           </div>
           
-          {/* Links Column - Only Explore section remains */}
+          {/* Explore Links */}
           <div className="md:col-span-1 lg:col-span-1">
             <h3 className="text-2xl font-bold mb-6 font-alice border-b border-gray-700 pb-2">Explore</h3>
             <ul className="space-y-5">
@@ -76,10 +65,8 @@ const Footer = () => {
                { name: 'Gallery', href: '/gallery' },
                { name: 'Contact us', href: '/contact' },
               ].map((item, index) => (
-                <motion.li 
+                <li 
                   key={index}
-                  whileHover={{ x: 5 }}
-                  transition={{ type: "spring", stiffness: 300 }}
                 >
                   <Link 
                     to={item.href} 
@@ -88,7 +75,7 @@ const Footer = () => {
                     <span className="w-2 h-2 bg-coral rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity"></span>
                     {item.name}
                   </Link>
-                </motion.li>
+                </li>
               ))}
             </ul>
           </div>
@@ -143,7 +130,6 @@ const Footer = () => {
           </div>
         </div>
         
-        {/* Bottom Copyright */}
         <div className="border-t border-gray-800 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-500 text-center md:text-left mb-4 md:mb-0 font-alegreya text-lg">
             &copy; {currentYear} Advanced Printing. All rights reserved.

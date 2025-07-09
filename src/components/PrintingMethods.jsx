@@ -1,5 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
-import { motion } from 'framer-motion'
+import { useState, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -8,8 +7,6 @@ gsap.registerPlugin(ScrollTrigger)
 const PrintingMethods = () => {
   const [clickedCard, setClickedCard] = useState(null)
   const sectionRef = useRef(null)
-
- 
 
   const methods = [
     {
@@ -47,31 +44,21 @@ const PrintingMethods = () => {
   return (
     <section ref={sectionRef} id="services" className="py-10 bg-light parallax-section">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
+        <div className="text-center mb-16">
           <h2 className="section-title text-dark mb-4 ">
             Custom Printing & Embroidery Options
           </h2>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {methods.map((method, index) => (
-            <motion.div
+            <div
               key={method.name}
               className="flip-card h-80 cursor-pointer"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
               onClick={() => handleCardClick(index)}
             >
               <div className={`flip-card-inner ${clickedCard === index ? 'md:transform-none' : ''}`}>
-                {/* Front of Card */}
+                {/* Front */}
                 <div className="flip-card-front relative">
                   <img
                     src={method.frontImage}
@@ -83,14 +70,13 @@ const PrintingMethods = () => {
                   </div>
                 </div>
 
-                {/* Back of Card */}
+                {/* Back */}
                 <div className="flip-card-back relative">
                   <img
                     src={method.frontImage}
                     alt={method.name}
                     className="w-full h-full object-cover rounded-2xl"
                   />
-                  {/* Overlay on top of image so image is still visible */}
                   <div className="absolute inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-6 text-white text-center rounded-2xl">
                     <div>
                       <h3 className="text-2xl font-bold mb-4 font-alice text-coral">{method.name}</h3>
@@ -100,7 +86,7 @@ const PrintingMethods = () => {
                 </div>
               </div>
 
-              {/* Mobile Click Overlay */}
+              {/* Mobile overlay */}
               {clickedCard === index && (
                 <div className="md:hidden absolute inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-6 text-white text-center rounded-2xl z-10">
                   <div>
@@ -109,7 +95,7 @@ const PrintingMethods = () => {
                   </div>
                 </div>
               )}
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

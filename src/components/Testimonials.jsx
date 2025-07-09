@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { useEffect, useState, useRef } from 'react'
 import { Star } from 'lucide-react'
@@ -9,8 +8,6 @@ gsap.registerPlugin(ScrollTrigger)
 
 const Testimonials = () => {
   const sectionRef = useRef(null)
-
-
 
   const testimonials = [
     {
@@ -88,30 +85,19 @@ const Testimonials = () => {
     <section ref={sectionRef} className="py-16 bg-white parallax-section">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Testimonials */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
+        <div className="text-center mb-16">
           <h2 className="section-title text-dark mb-12 ">
             What People Are Saying
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <motion.div
+              <div
                 key={testimonial.name}
-                className="bg-white p-8 rounded-3xl shadow-lg border-4 border-transparent relative overflow-hidden"
+                className="bg-white p-8 rounded-3xl shadow-lg border-4 border-transparent relative overflow-hidden transform transition-transform duration-300 hover:scale-105"
                 style={{
                   background: 'linear-gradient(white, white) padding-box, linear-gradient(135deg, #FF6B9D, #FFA500) border-box'
                 }}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ scale: 1.02 }}
               >
                 {/* Decorative corner sparkles */}
                 <div className="absolute top-4 left-4">
@@ -132,42 +118,34 @@ const Testimonials = () => {
                   <p className="font-semibold text-dark text-lg font-alice">{testimonial.name}</p>
                   <p className="text-sm text-gray-500 font-alegreya">{testimonial.company}</p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
 
         {/* Stats Section */}
-        <motion.div
+        <div
           ref={ref}
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          viewport={{ once: true }}
           className="text-center pt-16 border-t border-gray-200"
         >
-          <h3 className=" font-bold text-dark mb-12 section-title">
+          <h3 className="font-bold text-dark mb-12 section-title">
             Proven. Trusted. Delivered.
           </h3>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
-              <motion.div
+              <div
                 key={stat.label}
                 className="text-center"
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
               >
                 <div className="text-4xl md:text-5xl font-bold text-dark mb-2 font-alegreya">
                   {formatNumber(animatedStats[index], stat.number)}
                 </div>
                 <div className="text-gray-600 font-medium font-alegreya text-lg">{stat.label}</div>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   )

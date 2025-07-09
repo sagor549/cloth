@@ -25,7 +25,6 @@ const FeaturedProducts = () => {
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  // Touch swipe handlers
   const handleTouchStart = (e) => {
     touchStartX.current = e.touches[0].clientX
   }
@@ -91,7 +90,6 @@ const FeaturedProducts = () => {
       price: '$20',
       image: '/cloth/jacket.jpg'
     },
-    
     {
       name: 'Custom Sweatpants',
       price: '$25',
@@ -128,20 +126,13 @@ const FeaturedProducts = () => {
       className="py-12 md:py-16 bg-white"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-10 md:mb-14"
-        >
+        <motion.div className="text-center mb-10 md:mb-14">
           <h2 className=" font-bold text-gray-900 mb-4 section-title">
             Featured Products
           </h2>
         </motion.div>
 
         <div className="relative">
-          {/* Navigation Arrows - Mobile only */}
           {isMobile && totalPages > 1 && (
             <>
               <button
@@ -162,7 +153,6 @@ const FeaturedProducts = () => {
             </>
           )}
 
-          {/* Product Grid */}
           <div 
             ref={containerRef}
             onTouchStart={isMobile ? handleTouchStart : undefined}
@@ -179,10 +169,6 @@ const FeaturedProducts = () => {
                 <motion.div
                   key={isMobile ? `${currentPage}-${index}` : index}
                   className="group relative overflow-hidden rounded-lg shadow-sm cursor-pointer"
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
                   whileHover={{ scale: 1.03 }}
                 >
                   <div className="w-full pb-[125%] relative overflow-hidden">
@@ -204,7 +190,6 @@ const FeaturedProducts = () => {
             </div>
           </div>
 
-          {/* Page Indicators - Mobile only */}
           {isMobile && totalPages > 1 && (
             <div className="flex justify-center mt-6 overflow-x-auto py-2">
               <div className="flex space-x-2">

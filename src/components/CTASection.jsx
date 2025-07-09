@@ -21,30 +21,17 @@ const CTASection = () => {
         <div className="text-center">
           <motion.h2 
             className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 font-alice"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
           >
             Ready to Print Something Awesome?
           </motion.h2>
           
           <motion.p 
             className="text-xl text-gray-200 max-w-2xl mx-auto mb-10 font-alegreya"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
           >
             Let's bring your ideas to life — and make them look amazing
           </motion.p>
           
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
+          <motion.div>
             <Link 
               to="/contact" 
               className="inline-block bg-coral hover:bg-coral-dark text-white font-bold py-3 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"

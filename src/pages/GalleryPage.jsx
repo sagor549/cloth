@@ -6,60 +6,76 @@ import Footer from '../components/Footer';
 const GalleryPage = () => {
   const navigate = useNavigate();
   const [selectedItem, setSelectedItem] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef(null);
 
   const galleryItems = [
-    { type: 'image', category: 'Apron', image: '/cloth/apron.jpg', title: 'Custom Aprons' },
+    { type: 'image', category: 'Apron', image: '/cloth/apron1.jpg', title: 'Custom Aprons' },
     { type: 'image', category: 'Bag', image: '/cloth/bag.jpg', title: 'Branded Bags' },
     { type: 'image', category: 'Caps', image: '/cloth/caps.jpg', title: 'Custom Caps' },
-    { type: 'image', category: 'Corporate Event', image: '/cloth/corporate_event.jpg', title: 'Corporate Event Wear' },
+    { type: 'image', category: 'Corporate Event', image: '/cloth/s1.jpg', title: 'Product' },
     { type: 'image', category: 'Embossed', image: '/cloth/embossed.jpg', title: 'Embossed Design' },
     { type: 'image', category: 'Hoodie', image: '/cloth/hoodie.jpg', title: 'Stylish Hoodies' },
     { type: 'image', category: 'Jacket', image: '/cloth/jacket.jpg', title: 'Custom Jackets' },
     { type: 'image', category: 'Personal Branding', image: '/cloth/personal_branding.jpg', title: 'Personal Branding Apparel' },
-    { type: 'image', category: 'Personal', image: '/cloth/personal.jpg', title: 'Personalized Products' },
+    
     { type: 'image', category: 'Embroidered', image: '/cloth/embro.jpg', title: 'Premium Embroidery' },
-    { type: 'image', category: 'Special g1', image: '/cloth/g1.jpg', title: 'Special Design g1' },
-    { type: 'image', category: 'Special g2', image: '/cloth/g2.jpg', title: 'Special Design g2' },
-    { type: 'image', category: 'Special g3', image: '/cloth/g3.jpg', title: 'Special Design g3' },
-    { type: 'image', category: 'Special g4', image: '/cloth/g4.jpg', title: 'Special Design g4' },
-    { type: 'image', category: 'Special g5', image: '/cloth/g5.jpg', title: 'Special Design g5' },
+    { type: 'image', category: 'Special g1', image: '/cloth/g1.jpg', title: 'Special Design ' },
+    { type: 'image', category: 'Special g2', image: '/cloth/g2.jpg', title: 'Special Design ' },
+    { type: 'image', category: 'Special g3', image: '/cloth/g3.jpg', title: 'Special Design' },
+    
+    
+  
+    { type: 'image', category: 'Special g5', image: '/cloth/s2.jpg', title: 'Special Design' },
+    
     // Video items
-    { type: 'video', category: 'Process', video: '/cloth/production_process.mp4', thumbnail: '/cloth/video_thumb1.jpg', title: 'Production Process' },
-    { type: 'video', category: 'Showcase', video: '/cloth/product_showcase.mp4', thumbnail: '/cloth/video_thumb2.jpg', title: 'Product Showcase' },
-    { type: 'video', category: 'Behind Scenes', video: '/cloth/behind_scenes.mp4', thumbnail: '/cloth/video_thumb3.jpg', title: 'Behind the Scenes' }
+    { type: 'video', category: 'Process', video: '/cloth/vid1.mp4', title: 'Production Process' },
+    { type: 'video', category: 'Showcase', video: '/cloth/vid2.mp4', title: 'Product Showcase' },
+    { type: 'video', category: 'Behind Scenes', video: '/cloth/vid3.mp4', title: 'Behind the Scenes' },
+    { type: 'video', category: 'Behind Scenes', video: '/cloth/vid4.mp4', title: 'Behind the Scenes' },
+    { type: 'video', category: 'Behind Scenes', video: '/cloth/vid5.mp4', title: 'Behind the Scenes' }
   ];
 
   const openItem = (index) => {
     setSelectedItem(index);
+    setIsPlaying(galleryItems[index].type === 'video');
     document.body.style.overflow = 'hidden';
   };
 
   const closeItem = () => {
-    // Pause video if playing
     if (videoRef.current) {
       videoRef.current.pause();
       videoRef.current = null;
     }
-    
     setSelectedItem(null);
+    setIsPlaying(false);
     document.body.style.overflow = 'auto';
   };
 
   const navigateItem = (direction) => {
-    // Pause current video if playing
     if (videoRef.current) {
       videoRef.current.pause();
       videoRef.current = null;
     }
     
-    setSelectedItem(prev => {
-      if (direction === 'next') {
-        return prev === galleryItems.length - 1 ? 0 : prev + 1;
-      } else {
-        return prev === 0 ? galleryItems.length - 1 : prev - 1;
-      }
-    });
+    const newIndex = direction === 'next'
+      ? (selectedItem === galleryItems.length - 1 ? 0 : selectedItem + 1)
+      : (selectedItem === 0 ? galleryItems.length - 1 : selectedItem - 1);
+    
+    setSelectedItem(newIndex);
+    setIsPlaying(galleryItems[newIndex].type === 'video');
+  };
+
+  const togglePlay = () => {
+    if (!videoRef.current) return;
+    
+    if (videoRef.current.paused) {
+      videoRef.current.play();
+      setIsPlaying(true);
+    } else {
+      videoRef.current.pause();
+      setIsPlaying(false);
+    }
   };
 
   // Handle keyboard navigation
@@ -73,6 +89,11 @@ const GalleryPage = () => {
         navigateItem('next');
       } else if (e.key === 'ArrowLeft') {
         navigateItem('prev');
+      } else if (e.key === ' ' || e.key === 'Spacebar') {
+        e.preventDefault();
+        if (galleryItems[selectedItem].type === 'video') {
+          togglePlay();
+        }
       }
     };
 
@@ -105,7 +126,7 @@ const GalleryPage = () => {
               {galleryItems.map((item, index) => (
                 <div
                   key={index}
-                  className="group relative overflow-hidden rounded-2xl shadow-lg aspect-square cursor-pointer"
+                  className="group relative overflow-hidden rounded-2xl shadow-lg aspect-square cursor-pointer bg-black"
                   onClick={() => openItem(index)}
                 >
                   {/* Thumbnail display */}
@@ -117,11 +138,15 @@ const GalleryPage = () => {
                     />
                   ) : (
                     <div className="relative w-full h-full">
-                      <img
-                        src={item.thumbnail}
-                        alt={item.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
+                      <video
+                        className="w-full h-full object-cover opacity-70"
+                        muted
+                        playsInline
+                        disablePictureInPicture
+                        preload="metadata"
+                      >
+                        <source src={item.video} type="video/mp4" />
+                      </video>
                       <div className="absolute inset-0 flex items-center justify-center">
                         <div className="bg-black/30 rounded-full p-4">
                           <svg 
@@ -141,19 +166,6 @@ const GalleryPage = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className="absolute bottom-0 left-0 right-0 p-6">
                       <h3 className="text-xl font-bold text-white font-alice">{item.title}</h3>
-                      {item.type === 'video' && (
-                        <p className="text-gray-200 mt-1 flex items-center">
-                          <svg 
-                            xmlns="http://www.w3.org/2000/svg" 
-                            viewBox="0 0 24 24" 
-                            fill="currentColor" 
-                            className="w-4 h-4 mr-1"
-                          >
-                            <path d="M4.5 4.5a3 3 0 00-3 3v9a3 3 0 003 3h8.25a3 3 0 003-3v-9a3 3 0 00-3-3H4.5zM19.94 18.75l-2.69-2.69V7.94l2.69-2.69c.944-.945 2.56-.276 2.56 1.06v11.38c0 1.336-1.616 2.005-2.56 1.06z" />
-                          </svg>
-                          Video
-                        </p>
-                      )}
                     </div>
                   </div>
                 </div>
@@ -193,12 +205,22 @@ const GalleryPage = () => {
 
           <button 
             className="absolute left-4 text-white text-4xl z-50 bg-black/50 rounded-full w-12 h-12 flex items-center justify-center"
-            onClick={() => navigateItem('prev')}
+            onClick={(e) => {
+              e.stopPropagation();
+              navigateItem('prev');
+            }}
           >
             &lt;
           </button>
 
-          <div className="max-w-4xl w-full max-h-[80vh] relative">
+          <div 
+            className="max-w-4xl w-full max-h-[80vh] relative"
+            onClick={() => {
+              if (galleryItems[selectedItem].type === 'video') {
+                togglePlay();
+              }
+            }}
+          >
             {galleryItems[selectedItem].type === 'image' ? (
               <img 
                 src={galleryItems[selectedItem].image}
@@ -206,46 +228,48 @@ const GalleryPage = () => {
                 className="w-full h-full object-contain max-h-[80vh]"
               />
             ) : (
-              <video 
-                ref={videoRef}
-                controls
-                autoPlay
-                className="w-full h-full object-contain max-h-[80vh]"
-              >
-                <source 
-                  src={galleryItems[selectedItem].video} 
-                  type="video/mp4" 
-                />
-                Your browser does not support the video tag.
-              </video>
-            )}
-            
-            <div className="absolute bottom-0 left-0 right-0 bg-black/70 p-4 text-center">
-              <h3 className="text-white text-xl font-bold">
-                {galleryItems[selectedItem].title}
-              </h3>
-              <p className="text-gray-300 mt-1">
-                {selectedItem + 1} of {galleryItems.length}
-                {galleryItems[selectedItem].type === 'video' && (
-                  <span className="ml-2 inline-flex items-center">
-                    <svg 
-                      xmlns="http://www.w3.org/2000/svg" 
-                      viewBox="0 0 24 24" 
-                      fill="currentColor" 
-                      className="w-4 h-4 ml-2 mr-1"
-                    >
-                      <path d="M4.5 4.5a3 3 0 00-3 3v9a3 3 0 003 3h8.25a3 3 0 003-3v-9a3 3 0 00-3-3H4.5zM19.94 18.75l-2.69-2.69V7.94l2.69-2.69c.944-.945 2.56-.276 2.56 1.06v11.38c0 1.336-1.616 2.005-2.56 1.06z" />
-                    </svg>
-                    Video
-                  </span>
+              <div className="relative w-full h-full">
+                <video 
+                  ref={videoRef}
+                  key={selectedItem} // Force re-render when video changes
+                  className="w-full h-full object-contain max-h-[80vh]"
+                  autoPlay
+                  muted
+                  playsInline
+                  onPlay={() => setIsPlaying(true)}
+                  onPause={() => setIsPlaying(false)}
+                >
+                  <source 
+                    src={galleryItems[selectedItem].video} 
+                    type="video/mp4" 
+                  />
+                  Your browser does not support the video tag.
+                </video>
+                
+                {!isPlaying && (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="bg-black/30 rounded-full p-6 cursor-pointer">
+                      <svg 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        viewBox="0 0 24 24" 
+                        fill="white" 
+                        className="w-16 h-16"
+                      >
+                        <path fillRule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                  </div>
                 )}
-              </p>
-            </div>
+              </div>
+            )}
           </div>
 
           <button 
             className="absolute right-4 text-white text-4xl z-50 bg-black/50 rounded-full w-12 h-12 flex items-center justify-center"
-            onClick={() => navigateItem('next')}
+            onClick={(e) => {
+              e.stopPropagation();
+              navigateItem('next');
+            }}
           >
             &gt;
           </button>

@@ -81,7 +81,7 @@ const Hero = () => {
               key={i} 
               className="video-item relative h-full w-[50vw] sm:w-[25vw] flex-shrink-0"
             >
-              <div className="absolute inset-0 bg-black/50 z-10"></div>
+              <div className="absolute inset-0 bg-black/65 z-10"></div>
               <video 
                 autoPlay 
                 loop 

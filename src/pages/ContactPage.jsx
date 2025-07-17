@@ -51,7 +51,7 @@ const ContactPage = () => {
                   Get a Free Quote
                 </h1>
                 <p className="text-gray-600 max-w-2xl mx-auto font-alegreya">
-                  Fill out this form and our team will get back to you within 24 hours
+                 Fill out the form and get the best quote from a team with 7 years of experience and 1000+ happy clients.
                 </p>
               </div>
 

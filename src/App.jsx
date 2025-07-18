@@ -11,6 +11,7 @@ import Footer from './components/Footer'
 import './index.css'
 import CTASection from './components/CTASection'
 import PreviewPage from './components/PreviewPage'
+import Stats from './components/Stats'
 
 function App() {
   return (
@@ -18,7 +19,10 @@ function App() {
       <Header />
       <main>
         <Hero />
-        <TrustSection />
+        <Stats/>
+<section className='relative top-8'>
+  <TrustSection />
+</section>
         <FeaturedProducts />
         <PrintingMethods />
         <BrandSections />

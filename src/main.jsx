@@ -5,6 +5,7 @@ import App from './App.jsx'
 import ContactPage from './pages/ContactPage.jsx'
 import GalleryPage from './pages/GalleryPage.jsx'
 import './index.css'
+import ArtworkRequirements from './pages/ArtworkRequirements.jsx'
 
 // Scroll to top function
 const scrollToTop = () => {
@@ -19,6 +20,7 @@ const AppRouter = () => {
         <Route path="/" element={<App />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/gallery" element={<GalleryPage />} />
+        <Route path="/artwork-requirements" element={<ArtworkRequirements />} />
       </Routes>
     </Router>
   )

@@ -21,7 +21,7 @@ const Header = () => {
     { name: 'Home', href: '/' },
     { name: 'Products', href: '/#products' },
     { name: 'Services', href: '/#services' },
-    { name: 'About us', href: '/#about' },
+    { name: 'Requirements', href: '/artwork-requirements' }, // Changed from "About us"
     { name: 'Gallery', href: '/gallery' },
     { name: 'Contact us', href: '/contact' },
   ];
@@ -58,8 +58,8 @@ const Header = () => {
           <motion.div className="bg-white text-dark">
             <div className="max-w-7xl mx-auto flex justify-end px-4">
               <div className="flex items-center space-x-2 text-sm font-medium py-1">
-                <Phone className="w-5 h-5 text-coral" />
-                <span className='text-base font-medium font-alegreya'>905-237-1464</span>
+                <Phone className="w-4 h-4 text-coral" />
+                <span className='text-base font-sm '>905-237-1464</span>
               </div>
             </div>
           </motion.div>
@@ -99,20 +99,15 @@ const Header = () => {
               </div>
             ))}
 
-            {/* Logo */}
-            <motion.div 
-              className="flex-shrink-0 mx-2"
-              whileHover={{ scale: 1.05 }}
-            >
+            {/* Logo - Removed hover effect */}
+            <motion.div className="flex-shrink-0 mx-2 relative bottom-[1px]">
               <Link to="/" onClick={scrollToTop} className="flex items-center">
-                <motion.img 
+                <img 
                   src="/cloth/logo.png" 
                   alt="Merchandise Logo" 
                   className={`object-contain transition-all duration-300 ${
-                    isScrolled ? 'h-20' : 'h-24'
+                    isScrolled ? 'h-20' : 'h-28'
                   }`}
-                  whileHover={{ rotate: 360 }}
-                  transition={{ duration: 0.6 }}
                 />
               </Link>
             </motion.div>
@@ -163,7 +158,7 @@ const Header = () => {
             <div className="flex-grow flex justify-center overflow-hidden">
               <motion.div className="flex-shrink-0">
                 <Link to="/" onClick={scrollToTop} className="flex items-center">
-                  <motion.img 
+                  <img 
                     src="/cloth/logo.png" 
                     alt="Merchandise Logo" 
                     className={`object-contain transition-all duration-300 ${

@@ -17,11 +17,11 @@ const Footer = () => {
           <div className="flex flex-col items-center md:items-start">
             <Link to="/" className="mb-6">
               <div className="flex items-center justify-center">
-                <div className="rounded-full w-96 flex items-center justify-center p-0 overflow-hidden">
+                <div className="rounded-full w-28 flex items-center justify-center p-0 overflow-hidden">
                   <img 
-                    src="cloth/logo.png" 
+                    src="cloth/whitelogo.png" 
                     alt="Advanced Printing Logo" 
-                    className="w-96 object-contain"
+                    className=" object-contain"
                   />
                 </div>
               </div>
@@ -58,12 +58,12 @@ const Footer = () => {
             <h3 className="text-2xl font-bold mb-6 font-alice border-b border-gray-700 pb-2">Explore</h3>
             <ul className="space-y-5">
               {[
-               { name: 'Home', href: '/' },
-               { name: 'Products', href: '/#products' },
-               { name: 'Services', href: '/#services' },
-               { name: 'About us', href: '/#about' },
-               { name: 'Gallery', href: '/gallery' },
-               { name: 'Contact us', href: '/contact' },
+              { name: 'Home', href: '/' },
+    { name: 'Products', href: '/#products' },
+    { name: 'Services', href: '/#services' },
+    { name: 'Requirements', href: '/artwork-requirements' }, // Changed from "About us"
+    { name: 'Gallery', href: '/gallery' },
+    { name: 'Contact us', href: '/contact' },
               ].map((item, index) => (
                 <li 
                   key={index}
@@ -122,8 +122,8 @@ const Footer = () => {
                   </svg>
                 </div>
                 <span className="text-gray-400">
-                  Monday - Friday: 9AM - 6PM<br />
-                  Saturday: 10AM - 4PM
+                  Monday - Friday: 9AM - 7PM<br />
+                  Saturday: 12AM - 4PM
                 </span>
               </li>
             </ul>

@@ -10,6 +10,7 @@ import Testimonials from './components/Testimonials'
 import Footer from './components/Footer'
 import './index.css'
 import CTASection from './components/CTASection'
+import PreviewPage from './components/PreviewPage'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <FeaturedProducts />
         <PrintingMethods />
         <BrandSections />
+        <PreviewPage/>
         <WhyChooseUs />
         <Testimonials />
         <CTASection/>

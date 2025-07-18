@@ -8,7 +8,6 @@ gsap.registerPlugin(ScrollTrigger);
 const Hero = () => {
   const heroRef = useRef(null);
   const contentRef = useRef(null);
-  const videoRowRef = useRef(null);
   const navigate = useNavigate();
 
   const videoSources = [
@@ -21,7 +20,6 @@ const Hero = () => {
   useEffect(() => {
     const hero = heroRef.current;
     const content = contentRef.current;
-    const videoRow = videoRowRef.current;
 
     // Content fade out on scroll
     gsap.to(content, {
@@ -33,23 +31,6 @@ const Hero = () => {
         start: "top top",
         end: "bottom top",
         scrub: true
-      }
-    });
-
-    // Seamless video marquee animation
-    const videos = videoRow.querySelectorAll('.video-item');
-    const totalWidth = Array.from(videos).reduce((sum, video) => sum + video.offsetWidth, 0);
-    
-    gsap.to(videoRow, {
-      x: () => `-=${totalWidth / 2}`,
-      duration: 20,
-      ease: "none",
-      repeat: -1,
-      modifiers: {
-        x: gsap.utils.unitize(x => {
-          const parsed = parseFloat(x);
-          return parsed % (totalWidth / 2);
-        })
       }
     });
 
@@ -68,20 +49,16 @@ const Hero = () => {
       id="home" 
       className="relative h-[60vh] min-h-[500px] md:min-h-[600px] flex items-center justify-center overflow-hidden"
     >
-      {/* Video Marquee Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-dark via-gray-800 to-gray-900 overflow-hidden">
-        {/* Video row container */}
-        <div 
-          ref={videoRowRef}
-          className="absolute inset-y-0 left-0 h-full flex items-center nowrap"
-        >
-          {/* Double the videos for seamless looping */}
-          {[...videoSources, ...videoSources].map((src, i) => (
+      {/* Video Grid Background */}
+      <div className="absolute inset-0 bg-black overflow-hidden">
+        {/* Video grid container */}
+        <div className="absolute inset-0 grid grid-cols-2 grid-rows-2 sm:grid-cols-4 sm:grid-rows-1">
+          {videoSources.map((src, i) => (
             <div 
               key={i} 
-              className="video-item relative h-full w-[50vw] sm:w-[25vw] flex-shrink-0"
+              className="relative w-full h-full"
             >
-              <div className="absolute inset-0 bg-black/65 z-10"></div>
+              <div className="absolute inset-0 bg-black/70 z-10"></div>
               <video 
                 autoPlay 
                 loop 

@@ -115,11 +115,11 @@ const FeaturedProducts = () => {
     <section 
       ref={sectionRef} 
       id="products" 
-      className="py-12 md:py-16 bg-white"
+      className="py-12 md:py-16 bg-black"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div className="text-center mb-10 md:mb-14">
-          <h2 className=" font-bold text-gray-900 mb-4 section-title">
+          <h2 className=" font-bold text-white mb-4 section-title">
             Featured Products
           </h2>
         </motion.div>

@@ -12,6 +12,7 @@ import './index.css'
 import CTASection from './components/CTASection'
 import PreviewPage from './components/PreviewPage'
 import Stats from './components/Stats'
+import SatisfiedCustomers from './components/SatisfiedCustomers'
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <BrandSections />
         <PreviewPage/>
         <WhyChooseUs />
+        <SatisfiedCustomers/>
         <Testimonials />
         <CTASection/>
       </main>

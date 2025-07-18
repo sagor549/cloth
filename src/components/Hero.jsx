@@ -12,7 +12,7 @@ const Hero = () => {
 
   const videoSources = [
     '/cloth/vid1.mp4',
-    '/cloth/vid2.mp4',
+    '/cloth/vid5.mp4',
     '/cloth/vid3.mp4',
     '/cloth/vid4.mp4'
   ];

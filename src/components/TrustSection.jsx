@@ -20,7 +20,7 @@ const TrustSection = () => {
     <section ref={sectionRef} className="py-16 bg-light overflow-hidden parallax-section">
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-6 text-center">
         <h2 className="section-title text-dark mb-8">
-          Trusted by 1,000,000+
+          Trusted by 1000+
         </h2>
 
         {/* Updated Logo Container */}

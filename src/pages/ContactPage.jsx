@@ -56,11 +56,11 @@ const ContactPage = () => {
               </div>
 
               {submitSuccess ? (
-                <div className="bg-green-50 border border-green-200 rounded-xl p-6 text-center">
+                <div className="bg-green-50 border border-green-200 rounded-xl p-6 text-center font-alegreya">
                   <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Check className="w-8 h-8 text-green-600" />
                   </div>
-                  <h3 className="text-xl font-bold text-green-800 mb-2">Thank You!</h3>
+                  <h3 className="text-xl font-bold text-green-800 mb-2 font-alegreya">Thank You!</h3>
                   <p className="text-green-700 mb-6">
                     Your message has been sent successfully. We'll contact you shortly.
                   </p>
@@ -73,8 +73,8 @@ const ContactPage = () => {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-alegreya">
+                    <div >
                       <label htmlFor="user_name" className="block text-gray-700 mb-2 font-medium">Full Name *</label>
                       <input 
                         type="text"
@@ -102,7 +102,7 @@ const ContactPage = () => {
                     </div>
                   </div>
                   <div>
-                    <label htmlFor="user_phone" className="block text-gray-700 mb-2 font-medium">Phone Number</label>
+                    <label htmlFor="user_phone" className="block text-gray-700 mb-2 font-medium font-alegreya">Phone Number</label>
                     <input 
                       type="tel"
                       name="user_phone"
@@ -114,7 +114,7 @@ const ContactPage = () => {
                     />
                   </div>
                   <div>
-                    <label htmlFor="user_message" className="block text-gray-700 mb-2 font-medium">Message *</label>
+                    <label htmlFor="user_message" className="block text-gray-700 mb-2 font-medium font-alegreya">Message *</label>
                     <textarea 
                       name="user_message"
                       id="user_message"
@@ -122,7 +122,7 @@ const ContactPage = () => {
                       rows={5}
                       value={formData.user_message}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-coral focus:border-transparent transition-all"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-coral focus:border-transparent transition-all font-alegreya"
                       placeholder="Tell us about your project, quantities, timeline, etc..."
                     />
                   </div>
@@ -134,7 +134,7 @@ const ContactPage = () => {
                   <button 
                     type="submit"
                     disabled={isSubmitting}
-                    className={`w-full flex items-center justify-center py-4 bg-gradient-to-r from-coral to-orange-500 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 group ${
+                    className={`w-full flex font-alice items-center justify-center py-4 bg-gradient-to-r from-coral to-orange-500 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 group ${
                       isSubmitting ? 'opacity-70 cursor-not-allowed' : ''
                     }`}
                   >
@@ -157,8 +157,8 @@ const ContactPage = () => {
               )}
 
               <div className="mt-8 p-6 bg-blue-50 rounded-xl border border-blue-100">
-                <h3 className="font-semibold text-dark mb-3">What happens next?</h3>
-                <ul className="space-y-2 text-gray-600">
+                <h3 className="font-semibold text-dark mb-3 font-alice">What happens next?</h3>
+                <ul className="space-y-2 text-gray-600 font-alegreya">
                   <li className="flex items-start"><Check className="h-5 w-5 text-green-500 mr-2 mt-0.5" /> We review your request within 24 hours</li>
                   <li className="flex items-start"><Check className="h-5 w-5 text-green-500 mr-2 mt-0.5" /> Our specialist contacts you with a quote</li>
                   <li className="flex items-start"><Check className="h-5 w-5 text-green-500 mr-2 mt-0.5" /> We discuss your project requirements</li>
@@ -176,9 +176,9 @@ const ContactPage = () => {
             <p className="text-gray-600 max-w-2xl mx-auto font-alegreya mb-12">
               Reach out to us through any of these channels
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 font-alegreya">
               {[
-                { icon: <Phone className="w-8 h-8 text-white" />, bg: "bg-gradient-to-br from-coral to-orange-500", title: "Phone", content: "905-237-1464", link: "tel:905-237-1464" },
+                { icon: <Phone className="w-8 h-8 text-white font-alegreya" />, bg: "bg-gradient-to-br from-coral to-orange-500", title: "Phone", content: "905-237-1464", link: "tel:905-237-1464" },
                 { icon: <Mail className="w-8 h-8 text-white" />, bg: "bg-gradient-to-br from-teal to-blue-500", title: "Email", content: "info@advancedprinting.org", link: "mailto:info@advancedprinting.org" },
                 { icon: <MapPin className="w-8 h-8 text-white" />, bg: "bg-gradient-to-br from-indigo-500 to-purple-600", title: "Address", content: "10330 Yonge St #1, Richmond Hill, Ontario, L4C 5N1", link: "https://maps.google.com/?q=10330+Yonge+St+%231,+Richmond+Hill,+Ontario,+L4C+5N1" },
                 { icon: <Clock className="w-8 h-8 text-white" />, bg: "bg-gradient-to-br from-amber-500 to-yellow-500", title: "Business Hours", content: "Mon-Fri: 9AM-6PM | Sat: 10AM-4PM" }

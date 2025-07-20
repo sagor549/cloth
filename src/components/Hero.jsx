@@ -94,7 +94,7 @@ const Hero = () => {
           
           <div>
             <button
-              className="bg-coral hover:bg-coral/90 text-white px-8 sm:px-12 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold shadow-xl transition-all duration-300"
+              className="bg-coral hover:bg-coral/90 text-white px-8 sm:px-12 py-3 sm:py-4 rounded-full text-base sm:text-lg md:text-2xl font-semibold shadow-xl transition-all duration-300 font-alice"
               onClick={handleGetQuote}
             >
               Get Free Quote

@@ -174,8 +174,8 @@ const FeaturedProducts = () => {
                   
                   <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-3">
                     <div className="text-center text-white">
-                      <h3 className="text-xs sm:text-sm font-medium mb-1">{product.name}</h3>
-                      <p className="text-xs font-semibold text-orange-300">Starting at {product.price}</p>
+                      <h3 className="text-md sm:text-sm font-medium mb-1 font-alice">{product.name}</h3>
+                      <p className="text-md font-semibold text-orange-300 font-alegreya">Starting at {product.price}</p>
                     </div>
                   </div>
                 </motion.div>

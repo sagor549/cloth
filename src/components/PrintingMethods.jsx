@@ -82,7 +82,7 @@ const PrintingMethods = () => {
                     className="w-full h-full object-cover rounded-2xl"
                   />
                   <div className="absolute bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm p-4 rounded-b-2xl transition-all duration-300">
-                    <h3 className="text-xl font-bold text-gray-900">{method.name}</h3>
+                    <h3 className="text-xl font-bold text-gray-900 font-alice">{method.name}</h3>
                    
                   </div>
                   
@@ -100,8 +100,8 @@ const PrintingMethods = () => {
                     <div className="bg-amber-500 text-white rounded-full w-12 h-12 flex items-center justify-center mb-4">
                       {index + 1}
                     </div>
-                    <h3 className="text-2xl font-bold mb-4">{method.name}</h3>
-                    <p className="text-lg leading-relaxed">{method.details}</p>
+                    <h3 className="text-2xl font-bold mb-4 font-alice">{method.name}</h3>
+                    <p className="text-lg leading-relaxed font-alegreya">{method.details}</p>
                   </div>
                 </div>
               </div>

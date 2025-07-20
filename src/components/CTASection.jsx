@@ -34,7 +34,7 @@ const CTASection = () => {
           <motion.div>
             <Link 
               to="/contact" 
-              className="inline-block bg-coral hover:bg-coral-dark text-white font-bold py-3 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
+              className="inline-block bg-coral hover:bg-coral-dark text-white font-bold py-3 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg font-alice"
             >
               Get Started
             </Link>

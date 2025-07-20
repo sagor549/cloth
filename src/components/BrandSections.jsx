@@ -38,7 +38,7 @@ const BrandSections = () => {
           <h2 className="section-title text-dark mb-6 ">
             Wear Your Brand
           </h2>
-          <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed font-alegreya">
             From limited-edition collections to everyday team wear, we handle small batch to bulk — no compromises. 
             Whether you need 25 or 2,500 units, your quality stays consistent.
           </p>
@@ -65,10 +65,10 @@ const BrandSections = () => {
               </div>
               
               <div className="flex-1 space-y-6">
-                <h3 className="text-3xl md:text-4xl font-bold text-dark font-alegreya">
+                <h3 className="text-3xl md:text-4xl font-bold text-dark font-alice">
                   {section.title}
                 </h3>
-                <p className="text-lg text-gray-600 leading-relaxed">
+                <p className="text-xl text-gray-600 leading-relaxed font-alegreya">
                   {section.description}
                 </p>
               </div>

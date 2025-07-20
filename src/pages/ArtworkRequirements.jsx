@@ -116,8 +116,9 @@ const ArtworkRequirements = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7 }}
               >
-                <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 font-alice">
-                  Artwork Requirements
+                <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 font-alice section-title">
+                  Artwork Recommendations
+
                 </h1>
                 <p className="text-xl text-gray-700 mb-8 leading-relaxed font-alegreya">
                   At AP Merchandise, we transform your vision into exceptional prints. Follow these guidelines to ensure perfect results every time.
@@ -267,7 +268,7 @@ const ArtworkRequirements = () => {
 
         <section className="py-20 bg-gradient-to-br from-coral/10 to-teal/10">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-4xl md:text-5xl font-bold text-dark mb-6 italic font-alice">
+            <h2 className="text-4xl md:text-5xl font-bold text-dark mb-6  font-alice">
               Ready to Create Your Custom Merchandise?
             </h2>
             <p className="text-xl text-gray-600 mb-8 font-alegreya">
@@ -275,7 +276,7 @@ const ArtworkRequirements = () => {
             </p>
             <button
               onClick={() => navigate('/contact')}
-              className="bg-coral hover:bg-coral/90 text-white px-12 py-4 rounded-full text-lg font-semibold transition-colors duration-300"
+              className="bg-coral hover:bg-coral/90 text-white px-12 py-4 rounded-full text-xl font-semibold transition-colors duration-300 font-alice"
             >
               Get Started Today
             </button>

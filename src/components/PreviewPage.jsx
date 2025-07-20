@@ -15,12 +15,12 @@ const PreviewPage = () => {
         {/* Company header */}
         <div className="text-center mb-12">
           <motion.h1 
-            className="text-4xl md:text-6xl font-bold text-gray-900 tracking-tight mb-2 font-alice"
+            className="section-title text-gray-900 tracking-tight mb-2 font-alice"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            Artwork Requirements
+            Artwork Recommendations
           </motion.h1>
           
         </div>
@@ -48,8 +48,8 @@ const PreviewPage = () => {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.5, duration: 0.5 }}
                 >
-                  At AP Macendise, we maintain <span className="font-semibold text-coral">strict quality standards</span> for all print projects. 
-                  To ensure premium results, we require artwork files that meet specific technical specifications.
+                  At AP Merchandise, we maintain <span className="font-semibold text-coral">strict quality standards</span> for all print projects. 
+                  To ensure premium results, we recommend artwork files that meet specific technical specifications.
                 </motion.p>
                 
                 <motion.div 
@@ -58,7 +58,7 @@ const PreviewPage = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6, duration: 0.5 }}
                 >
-                  <h3 className="text-xl font-semibold text-gray-900 mb-4">Key Requirements:</h3>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">Key Recommendations:</h3>
                   <ul className="space-y-3">
                     <motion.li 
                       className="flex items-start"
@@ -145,15 +145,15 @@ const PreviewPage = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1.3, duration: 0.5 }}
                 >
-                  <span className="relative z-10">View Complete Requirements</span>
+                  <span className="relative z-10 font-alice">View Complete Recommendations</span>
                 </motion.button>
                 <motion.p 
-                  className="mt-4 text-gray-500 text-sm"
+                  className="mt-4 text-gray-500 text-sm font-alegreya"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 1.4, duration: 0.5 }}
                 >
-                  Detailed specifications for all print products
+                  It's ok if you don't have all of these
                 </motion.p>
               </div>
             </div>

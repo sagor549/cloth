@@ -107,7 +107,7 @@ const GalleryPage = () => {
         {/* Hero Section */}
         <section className="py-20 bg-gradient-to-br from-coral/10 to-teal/10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-dark mb-6 italic">
+            <h1 className="text-4xl md:text-6xl font-bold text-dark mb-6  section-title">
               Our Gallery
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto font-alegreya">

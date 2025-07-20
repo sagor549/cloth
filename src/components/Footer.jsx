@@ -56,7 +56,7 @@ const Footer = () => {
           {/* Explore Links */}
           <div className="md:col-span-1 lg:col-span-1">
             <h3 className="text-2xl font-bold mb-6 font-alice border-b border-gray-700 pb-2">Explore</h3>
-            <ul className="space-y-5">
+            <ul className="space-y-5 font-alegreya">
               {[
               { name: 'Home', href: '/' },
     { name: 'Products', href: '/#products' },

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Phone, Mail, MapPin, Clock, Send, Check } from 'lucide-react';
 import Header from '../components/Header';
@@ -15,6 +15,11 @@ const ContactPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState('');
+
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scroll to top on mount
+  }, []);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;

@@ -68,10 +68,12 @@ const PreviewPage = () => {
                     >
                       <div className="flex-shrink-0 mt-1 mr-3">
                         <div className="w-6 h-6 rounded-full bg-coral/10 flex items-center justify-center">
-                          <span className="text-coral font-bold">1</span>
+                          <span className="text-coral font-bold">1
+</span>
                         </div>
                       </div>
-                      <span>300-600 DPI resolution for optimal clarity</span>
+                      <span>Minimum 300 dpi resolution
+</span>
                     </motion.li>
                     
                     <motion.li 
@@ -85,7 +87,7 @@ const PreviewPage = () => {
                           <span className="text-coral font-bold">2</span>
                         </div>
                       </div>
-                      <span>CMYK color mode for accurate color reproduction</span>
+                      <span>CMYK color mode </span>
                     </motion.li>
                     
                     <motion.li 
@@ -99,7 +101,8 @@ const PreviewPage = () => {
                           <span className="text-coral font-bold">3</span>
                         </div>
                       </div>
-                      <span>Vector files with all text outlined</span>
+                      <span> All text and lines outlined for vector files
+</span>
                     </motion.li>
                     
                     <motion.li 
@@ -113,7 +116,7 @@ const PreviewPage = () => {
                           <span className="text-coral font-bold">4</span>
                         </div>
                       </div>
-                      <span>Proper sizing and bleeds (3mm minimum)</span>
+                      <span>Artwork in the actual printing size</span>
                     </motion.li>
                     
                     <motion.li 
@@ -127,7 +130,8 @@ const PreviewPage = () => {
                           <span className="text-coral font-bold">5</span>
                         </div>
                       </div>
-                      <span>Minimum font sizes for readability (8pt for body text)</span>
+                      <span>Proofread all files before submitting
+</span>
                     </motion.li>
                   </ul>
                 </motion.div>

@@ -1,18 +1,14 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { HashRouter as Router, Routes, Route } from 'react-router-dom' // <<== THIS IS HASHROUTER
+
 import App from './App.jsx'
 import ContactPage from './pages/ContactPage.jsx'
 import GalleryPage from './pages/GalleryPage.jsx'
-import './index.css'
 import ArtworkRequirements from './pages/ArtworkRequirements.jsx'
 
-// Scroll to top function
-const scrollToTop = () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' })
-}
+import './index.css'
 
-// Enhanced Router with scroll management
 const AppRouter = () => {
   return (
     <Router>
@@ -29,5 +25,5 @@ const AppRouter = () => {
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AppRouter />
-  </StrictMode>,
+  </StrictMode>
 )

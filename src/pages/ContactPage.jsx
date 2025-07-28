@@ -7,27 +7,16 @@ import emailjs from '@emailjs/browser';
 
 const ContactPage = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    user_name: '',
-    user_email: '',
-    user_phone: '',
-    user_message: ''
-  });
+  const formRef = useRef(null);
+  const fileInputRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const fileInputRef = useRef(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    emailjs.init("YOUR_EMAILJS_USER_ID");
   }, []);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
@@ -57,29 +46,31 @@ const ContactPage = () => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitError('');
+    setSubmitSuccess(false);
 
     try {
-      const form = new FormData();
+      // Create a new FormData object from the form
+      const formData = new FormData(formRef.current);
       
-      // Append form data
-      Object.entries(formData).forEach(([key, value]) => {
-        form.append(key, value);
-      });
-      
-      // Append files
+      // Clear existing files and add selected files
+      formData.delete('user_files');
       selectedFiles.forEach(file => {
-        form.append('files', file);
+        formData.append('user_files', file);
       });
 
-      // Send email using EmailJS
-     
+      // Send form using EmailJS
+      await emailjs.sendForm(
+        'service_3y7mwuz',
+        'template_bcthlio',
+        formRef.current,
+        '6Ev23gj-s46loCZGA',
+        formData
+      );
 
-      if (response.status === 200) {
-        setSubmitSuccess(true);
-        setFormData({ user_name: '', user_email: '', user_phone: '', user_message: '' });
-        setSelectedFiles([]);
-        if (fileInputRef.current) fileInputRef.current.value = '';
-      }
+      // Success handling
+      setSubmitSuccess(true);
+      formRef.current.reset();
+      setSelectedFiles([]);
     } catch (error) {
       setSubmitError('Failed to send message. Please try again.');
       console.error('EmailJS error:', error);
@@ -122,17 +113,20 @@ const ContactPage = () => {
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form 
+                  ref={formRef}
+                  onSubmit={handleSubmit} 
+                  className="space-y-6"
+                  encType="multipart/form-data"  // Essential for file uploads
+                >
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-alegreya">
-                    <div >
+                    <div>
                       <label htmlFor="user_name" className="block text-gray-700 mb-2 font-medium">Full Name *</label>
                       <input 
                         type="text"
                         name="user_name"
                         id="user_name"
                         required
-                        value={formData.user_name}
-                        onChange={handleChange}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-coral focus:border-transparent transition-all"
                         placeholder="John Doe"
                       />
@@ -144,8 +138,6 @@ const ContactPage = () => {
                         name="user_email"
                         id="user_email"
                         required
-                        value={formData.user_email}
-                        onChange={handleChange}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-coral focus:border-transparent transition-all"
                         placeholder="john@example.com"
                       />
@@ -157,8 +149,6 @@ const ContactPage = () => {
                       type="tel"
                       name="user_phone"
                       id="user_phone"
-                      value={formData.user_phone}
-                      onChange={handleChange}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-coral focus:border-transparent transition-all"
                       placeholder="(123) 456-7890"
                     />
@@ -172,6 +162,7 @@ const ContactPage = () => {
                     <div className="flex items-center">
                       <input 
                         type="file"
+                        name="user_files"  // Must match parameter name in EmailJS
                         ref={fileInputRef}
                         onChange={handleFileChange}
                         multiple
@@ -223,8 +214,6 @@ const ContactPage = () => {
                       id="user_message"
                       required
                       rows={5}
-                      value={formData.user_message}
-                      onChange={handleChange}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-coral focus:border-transparent transition-all font-alegreya"
                       placeholder="Tell us about your project, quantities, timeline, etc..."
                     />

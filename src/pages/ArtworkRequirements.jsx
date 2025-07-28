@@ -354,7 +354,7 @@ This isn’t required, but it helps us better understand your design intent.
               Submit Artwork
             </button>
             <p className="mt-4 text-gray-600 font-alegreya">
-              or email us at <span className="text-blue-600 font-semibold">artwork@apmerchandise.com</span>
+              or email us at <span className="text-blue-600 font-semibold">info@advancedprinting.org</span>
             </p>
           </div>
         </section>

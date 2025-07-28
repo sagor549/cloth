@@ -15,8 +15,10 @@ const ContactPage = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
 
   useEffect(() => {
+  setTimeout(() => {
     window.scrollTo(0, 0);
-  }, []);
+  }, 0);
+}, []);
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);

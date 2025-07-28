@@ -257,7 +257,8 @@ const ArtworkRequirements = () => {
               <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 mt-6">
                 <h4 className="font-bold text-gray-900 mb-3 font-alice">File Submission Tip</h4>
                 <p className="text-gray-700 font-alegreya">
-                  When submitting files, include a PDF proof showing placement and dimensions. This helps us verify your design intent.
+                 If possible, include a quick visual proof or mockup (PDF, PNG, or screenshot) showing placement and dimensions.
+This isn’t required, but it helps us better understand your design intent.
                 </p>
               </div>
             </div>

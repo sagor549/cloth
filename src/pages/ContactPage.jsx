@@ -1,8 +1,9 @@
-import { useState,useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Phone, Mail, MapPin, Clock, Send, Check } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, Send, Check, Paperclip, X } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import emailjs from '@emailjs/browser';
 
 const ContactPage = () => {
   const navigate = useNavigate();
@@ -15,32 +16,76 @@ const ContactPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState('');
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
-    window.scrollTo(0, 0); // Scroll to top on mount
+    window.scrollTo(0, 0);
+    emailjs.init("YOUR_EMAILJS_USER_ID");
   }, []);
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files);
+    
+    // Validate file count
+    if (selectedFiles.length + files.length > 3) {
+      setSubmitError('Maximum 3 files allowed');
+      return;
+    }
+    
+    // Validate file sizes
+    const oversizedFiles = files.filter(file => file.size > 10 * 1024 * 1024);
+    if (oversizedFiles.length > 0) {
+      setSubmitError('File size exceeds 10MB limit');
+      return;
+    }
+    
+    setSelectedFiles(prev => [...prev, ...files]);
+    setSubmitError('');
+  };
+
+  const removeFile = (index) => {
+    setSelectedFiles(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitError('');
 
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitSuccess(true);
-      setFormData({
-        user_name: '',
-        user_email: '',
-        user_phone: '',
-        user_message: ''
+    try {
+      const form = new FormData();
+      
+      // Append form data
+      Object.entries(formData).forEach(([key, value]) => {
+        form.append(key, value);
       });
-    }, 1500);
+      
+      // Append files
+      selectedFiles.forEach(file => {
+        form.append('files', file);
+      });
+
+      // Send email using EmailJS
+     
+
+      if (response.status === 200) {
+        setSubmitSuccess(true);
+        setFormData({ user_name: '', user_email: '', user_phone: '', user_message: '' });
+        setSelectedFiles([]);
+        if (fileInputRef.current) fileInputRef.current.value = '';
+      }
+    } catch (error) {
+      setSubmitError('Failed to send message. Please try again.');
+      console.error('EmailJS error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -56,7 +101,7 @@ const ContactPage = () => {
                   Get a Free Quote
                 </h1>
                 <p className="text-gray-600 max-w-2xl mx-auto font-alegreya">
-                 Fill out the form and get the best quote from a team with 7 years of experience and 1000+ happy clients.
+                  Fill out the form and get the best quote from a team with 7 years of experience and 1000+ happy clients.
                 </p>
               </div>
 
@@ -118,6 +163,59 @@ const ContactPage = () => {
                       placeholder="(123) 456-7890"
                     />
                   </div>
+                  
+                  {/* File Upload Section */}
+                  <div>
+                    <label className="block text-gray-700 mb-2 font-medium font-alegreya">
+                      Upload Files (Optional)
+                    </label>
+                    <div className="flex items-center">
+                      <input 
+                        type="file"
+                        ref={fileInputRef}
+                        onChange={handleFileChange}
+                        multiple
+                        className="hidden"
+                        accept=".jpg,.jpeg,.png,.pdf,.doc,.docx,.ai,.psd,.zip"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => fileInputRef.current.click()}
+                        className="flex items-center px-4 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+                      >
+                        <Paperclip className="w-5 h-5 mr-2" />
+                        Select Files
+                      </button>
+                      <span className="ml-3 text-gray-500 text-sm">
+                        Max 3 files (10MB each)
+                      </span>
+                    </div>
+                    
+                    {/* Selected files preview */}
+                    {selectedFiles.length > 0 && (
+                      <div className="mt-3 space-y-2">
+                        {selectedFiles.map((file, index) => (
+                          <div key={index} className="flex items-center justify-between bg-gray-50 p-3 rounded-lg border">
+                            <div className="flex items-center truncate">
+                              <Paperclip className="w-4 h-4 text-gray-500 mr-2 flex-shrink-0" />
+                              <span className="text-sm truncate">{file.name}</span>
+                              <span className="text-xs text-gray-500 ml-2 whitespace-nowrap">
+                                ({(file.size / 1024 / 1024).toFixed(2)}MB)
+                              </span>
+                            </div>
+                            <button 
+                              type="button"
+                              onClick={() => removeFile(index)}
+                              className="text-gray-500 hover:text-red-500 ml-2"
+                            >
+                              <X className="w-5 h-5" />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  
                   <div>
                     <label htmlFor="user_message" className="block text-gray-700 mb-2 font-medium font-alegreya">Message *</label>
                     <textarea 

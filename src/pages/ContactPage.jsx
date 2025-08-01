@@ -8,14 +8,25 @@ const ContactPage = () => {
   const navigate = useNavigate();
   const formRef = useRef(null);
   const fileInputRef = useRef(null);
+  const successMessageRef = useRef(null); // Ref for success message container
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const [selectedFiles, setSelectedFiles] = useState([]);
 
   useEffect(() => {
-    setTimeout(() => window.scrollTo(0, 0), 0);
+    window.scrollTo(0, 0);
   }, []);
+
+  // Scroll to success message when it appears
+  useEffect(() => {
+    if (submitSuccess && successMessageRef.current) {
+      successMessageRef.current.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' 
+      });
+    }
+  }, [submitSuccess]);
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
@@ -100,7 +111,10 @@ const ContactPage = () => {
               </div>
 
               {submitSuccess ? (
-                <div className="bg-green-50 border border-green-200 rounded-xl p-6 text-center font-alegreya">
+                <div 
+                  ref={successMessageRef} // Attach ref here
+                  className="bg-green-50 border border-green-200 rounded-xl p-6 text-center font-alegreya"
+                >
                   <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Check className="w-8 h-8 text-green-600" />
                   </div>

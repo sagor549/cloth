@@ -70,32 +70,60 @@ const Header = () => {
       if (location.pathname === '/') {
         // Try to scroll immediately
         if (!scrollToElement(hash)) {
-          // If element not found, try again after a short delay
-          scrollTimeoutRef.current = setTimeout(() => {
-            if (!scrollToElement(hash)) {
-              // Final attempt after animation completes
-              scrollTimeoutRef.current = setTimeout(() => {
-                scrollToElement(hash);
-              }, 500);
+          // Android-specific fix: Use simpler scroll method
+          const androidFallback = () => {
+            const target = document.querySelector(hash);
+            if (target) {
+              target.scrollIntoView({ behavior: 'smooth' });
             }
-          }, 100);
+          };
+          
+          // Try native scrollIntoView for Android
+          scrollTimeoutRef.current = setTimeout(androidFallback, 100);
         }
       } 
       // If we're not on home page
       else {
+        // Store hash to scroll to after navigation
+        sessionStorage.setItem('scrollToHash', hash);
         navigate('/');
-        // Wait for navigation to complete
-        scrollTimeoutRef.current = setTimeout(() => {
-          if (!scrollToElement(hash)) {
-            // If element not found, try again after a short delay
-            scrollTimeoutRef.current = setTimeout(() => {
-              scrollToElement(hash);
-            }, 300);
-          }
-        }, 100);
       }
     }
   };
+
+  // Handle scrolling after navigation
+  useEffect(() => {
+    const scrollHash = sessionStorage.getItem('scrollToHash');
+    if (scrollHash && location.pathname === '/') {
+      const scrollToAfterNavigation = () => {
+        if (scrollToElement(`#${scrollHash}`)) {
+          sessionStorage.removeItem('scrollToHash');
+        } else {
+          // Android fallback
+          const target = document.querySelector(`#${scrollHash}`);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+            sessionStorage.removeItem('scrollToHash');
+          }
+        }
+      };
+
+      // Try scrolling with increasing delays
+      const tryScroll = (attempt = 0) => {
+        if (attempt >= 5) return;
+        
+        setTimeout(() => {
+          if (document.querySelector(`#${scrollHash}`)) {
+            scrollToAfterNavigation();
+          } else {
+            tryScroll(attempt + 1);
+          }
+        }, 150 * (attempt + 1));
+      };
+
+      tryScroll();
+    }
+  }, [location]);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -188,7 +216,7 @@ const Header = () => {
           </div>
 
           {/* Mobile Header */}
-          <div className="lg:hidden flex items-center justify-between w-full">
+          <div className="lg:hidden flex items-center justify-between w-full sticky">
             <motion.button
               className="p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}

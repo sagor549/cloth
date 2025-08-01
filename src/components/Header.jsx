@@ -9,8 +9,7 @@ const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const scrollTimeoutRef = useRef(null);
-  const retryCountRef = useRef(0);
-  const scrollAttemptsRef = useRef(0);
+  const isAndroid = useRef(/Android/i.test(navigator.userAgent));
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,46 +37,60 @@ const Header = () => {
     { name: 'Contact us', href: '/contact' },
   ];
 
+  // Android-compatible scroll function
   const scrollToElement = (hash) => {
     const element = document.querySelector(hash);
-    if (element) {
-      // Calculate offset based on header height
-      const headerHeight = document.querySelector('header')?.offsetHeight || 80;
-      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-      const offsetPosition = elementPosition - headerHeight - 20;
-      
-      // Use simpler scroll method for Android
-      if (/Android/i.test(navigator.userAgent)) {
+    if (!element) return false;
+
+    // Calculate offset based on header height
+    const header = document.querySelector('header');
+    const headerHeight = header ? header.offsetHeight : 80;
+    const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+    const offsetPosition = elementPosition - headerHeight - 20;
+
+    // Special handling for Android
+    if (isAndroid.current) {
+      try {
+        // First try standard method
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+        
+        // Fallback for Android if not scrolled properly
+        setTimeout(() => {
+          const currentPosition = window.pageYOffset;
+          const targetPosition = Math.max(0, offsetPosition);
+          if (Math.abs(currentPosition - targetPosition) > 50) {
+            window.scrollTo(0, targetPosition);
+          }
+        }, 300);
+      } catch (e) {
+        // Final fallback for problematic Android browsers
         window.scrollTo(0, offsetPosition);
-        return true;
       }
-      
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
       return true;
     }
-    return false;
+    
+    // Standard scrolling for other devices
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
+    });
+    return true;
   };
 
-  // Improved scrolling with retry logic
-  const attemptScroll = (hash, maxAttempts = 5) => {
-    if (scrollAttemptsRef.current >= maxAttempts) {
-      scrollAttemptsRef.current = 0;
-      return false;
-    }
-
-    scrollAttemptsRef.current += 1;
+  // Robust scrolling with multiple fallbacks
+  const scrollToElementWithRetry = (hash, attempts = 0) => {
+    if (attempts > 5) return;
     
     if (scrollToElement(hash)) {
-      scrollAttemptsRef.current = 0;
       return true;
     }
     
     scrollTimeoutRef.current = setTimeout(() => {
-      attemptScroll(hash, maxAttempts);
-    }, 100 * scrollAttemptsRef.current);
+      scrollToElementWithRetry(hash, attempts + 1);
+    }, 150 * (attempts + 1));
     
     return false;
   };
@@ -87,7 +100,6 @@ const Header = () => {
     
     if (href.startsWith('/#')) {
       const hash = href.substring(1);
-      scrollAttemptsRef.current = 0;
       
       // Clear any existing timeout
       if (scrollTimeoutRef.current) {
@@ -97,36 +109,45 @@ const Header = () => {
       
       // If we're already on home page
       if (location.pathname === '/') {
-        attemptScroll(hash);
+        // Try to scroll immediately
+        if (!scrollToElementWithRetry(`#${hash}`)) {
+          // Force layout recalculation as fallback
+          document.body.clientHeight;
+          scrollToElementWithRetry(`#${hash}`);
+        }
       } 
       // If we're not on home page
       else {
-        navigate('/', { 
-          state: { scrollTo: hash },
-          replace: true
-        });
+        // Navigate to home page first
+        navigate('/');
+        
+        // Wait for navigation then scroll
+        scrollTimeoutRef.current = setTimeout(() => {
+          scrollToElementWithRetry(`#${hash}`);
+        }, 100);
       }
     }
   };
 
-  // Handle scrolling after navigation
-  useEffect(() => {
-    if (location.state?.scrollTo) {
-      const hash = location.state.scrollTo;
-      
-      // Clear navigation state to prevent re-scrolling
-      navigate(location.pathname, { replace: true, state: {} });
-      
-      // Attempt to scroll after a delay
-      scrollTimeoutRef.current = setTimeout(() => {
-        attemptScroll(`#${hash}`);
-      }, 100);
-    }
-  }, [location, navigate]);
-
+  // Scroll to top helper
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  // Workaround for Android scrolling issues
+  useEffect(() => {
+    if (isAndroid.current) {
+      const handleHashChange = () => {
+        const hash = window.location.hash;
+        if (hash) {
+          scrollToElementWithRetry(hash);
+        }
+      };
+      
+      window.addEventListener('hashchange', handleHashChange);
+      return () => window.removeEventListener('hashchange', handleHashChange);
+    }
+  }, []);
 
   return (
     <>

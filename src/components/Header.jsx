@@ -10,6 +10,7 @@ const Header = () => {
   const navigate = useNavigate();
   const scrollTimeoutRef = useRef(null);
   const retryCountRef = useRef(0);
+  const scrollAttemptsRef = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,6 +46,12 @@ const Header = () => {
       const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
       const offsetPosition = elementPosition - headerHeight - 20;
       
+      // Use simpler scroll method for Android
+      if (/Android/i.test(navigator.userAgent)) {
+        window.scrollTo(0, offsetPosition);
+        return true;
+      }
+      
       window.scrollTo({
         top: offsetPosition,
         behavior: 'smooth'
@@ -54,11 +61,33 @@ const Header = () => {
     return false;
   };
 
+  // Improved scrolling with retry logic
+  const attemptScroll = (hash, maxAttempts = 5) => {
+    if (scrollAttemptsRef.current >= maxAttempts) {
+      scrollAttemptsRef.current = 0;
+      return false;
+    }
+
+    scrollAttemptsRef.current += 1;
+    
+    if (scrollToElement(hash)) {
+      scrollAttemptsRef.current = 0;
+      return true;
+    }
+    
+    scrollTimeoutRef.current = setTimeout(() => {
+      attemptScroll(hash, maxAttempts);
+    }, 100 * scrollAttemptsRef.current);
+    
+    return false;
+  };
+
   const handleNavClick = (href) => {
     setIsMobileMenuOpen(false);
     
     if (href.startsWith('/#')) {
       const hash = href.substring(1);
+      scrollAttemptsRef.current = 0;
       
       // Clear any existing timeout
       if (scrollTimeoutRef.current) {
@@ -68,62 +97,32 @@ const Header = () => {
       
       // If we're already on home page
       if (location.pathname === '/') {
-        // Try to scroll immediately
-        if (!scrollToElement(hash)) {
-          // Android-specific fix: Use simpler scroll method
-          const androidFallback = () => {
-            const target = document.querySelector(hash);
-            if (target) {
-              target.scrollIntoView({ behavior: 'smooth' });
-            }
-          };
-          
-          // Try native scrollIntoView for Android
-          scrollTimeoutRef.current = setTimeout(androidFallback, 100);
-        }
+        attemptScroll(hash);
       } 
       // If we're not on home page
       else {
-        // Store hash to scroll to after navigation
-        sessionStorage.setItem('scrollToHash', hash);
-        navigate('/');
+        navigate('/', { 
+          state: { scrollTo: hash },
+          replace: true
+        });
       }
     }
   };
 
   // Handle scrolling after navigation
   useEffect(() => {
-    const scrollHash = sessionStorage.getItem('scrollToHash');
-    if (scrollHash && location.pathname === '/') {
-      const scrollToAfterNavigation = () => {
-        if (scrollToElement(`#${scrollHash}`)) {
-          sessionStorage.removeItem('scrollToHash');
-        } else {
-          // Android fallback
-          const target = document.querySelector(`#${scrollHash}`);
-          if (target) {
-            target.scrollIntoView({ behavior: 'smooth' });
-            sessionStorage.removeItem('scrollToHash');
-          }
-        }
-      };
-
-      // Try scrolling with increasing delays
-      const tryScroll = (attempt = 0) => {
-        if (attempt >= 5) return;
-        
-        setTimeout(() => {
-          if (document.querySelector(`#${scrollHash}`)) {
-            scrollToAfterNavigation();
-          } else {
-            tryScroll(attempt + 1);
-          }
-        }, 150 * (attempt + 1));
-      };
-
-      tryScroll();
+    if (location.state?.scrollTo) {
+      const hash = location.state.scrollTo;
+      
+      // Clear navigation state to prevent re-scrolling
+      navigate(location.pathname, { replace: true, state: {} });
+      
+      // Attempt to scroll after a delay
+      scrollTimeoutRef.current = setTimeout(() => {
+        attemptScroll(`#${hash}`);
+      }, 100);
     }
-  }, [location]);
+  }, [location, navigate]);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });

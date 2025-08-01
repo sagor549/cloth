@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { Phone, Mail, MapPin, Clock, Send, Check, Paperclip, X } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import emailjs from '@emailjs/browser';
 
 const ContactPage = () => {
   const navigate = useNavigate();
@@ -15,21 +14,17 @@ const ContactPage = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
 
   useEffect(() => {
-  setTimeout(() => {
-    window.scrollTo(0, 0);
-  }, 0);
-}, []);
+    setTimeout(() => window.scrollTo(0, 0), 0);
+  }, []);
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
     
-    // Validate file count
     if (selectedFiles.length + files.length > 3) {
       setSubmitError('Maximum 3 files allowed');
       return;
     }
     
-    // Validate file sizes
     const oversizedFiles = files.filter(file => file.size > 10 * 1024 * 1024);
     if (oversizedFiles.length > 0) {
       setSubmitError('File size exceeds 10MB limit');
@@ -51,31 +46,37 @@ const ContactPage = () => {
     setSubmitSuccess(false);
 
     try {
-      // Create a new FormData object from the form
-      const formData = new FormData(formRef.current);
+      const formData = new FormData();
       
-      // Clear existing files and add selected files
-      formData.delete('user_files');
+      // Append form fields
+      formData.append('user_name', formRef.current.user_name.value);
+      formData.append('user_email', formRef.current.user_email.value);
+      formData.append('user_phone', formRef.current.user_phone.value);
+      formData.append('merch_type', formRef.current.merch_type.value);
+      formData.append('user_message', formRef.current.user_message.value);
+      
+      // Append files with correct field name (user_files[])
       selectedFiles.forEach(file => {
-        formData.append('user_files', file);
+        formData.append('user_files[]', file);
       });
 
-      // Send form using EmailJS
-      await emailjs.sendForm(
-        'service_3y7mwuz',
-        'template_bcthlio',
-        formRef.current,
-        '6Ev23gj-s46loCZGA',
-        formData
-      );
+      const response = await fetch('https://merchandise.advancedprinting.org/sendmail.php', {
+        method: 'POST',
+        body: formData
+      });
 
-      // Success handling
-      setSubmitSuccess(true);
-      formRef.current.reset();
-      setSelectedFiles([]);
+      const result = await response.json();
+
+      if (result.success) {
+        setSubmitSuccess(true);
+        formRef.current.reset();
+        setSelectedFiles([]);
+      } else {
+        setSubmitError(result.message || 'Failed to send message');
+      }
     } catch (error) {
-      setSubmitError('Failed to send message. Please try again.');
-      console.error('EmailJS error:', error);
+      setSubmitError('Network error. Please try again.');
+      console.error('Submission error:', error);
     } finally {
       setIsSubmitting(false);
     }
@@ -119,7 +120,7 @@ const ContactPage = () => {
                   ref={formRef}
                   onSubmit={handleSubmit} 
                   className="space-y-6"
-                  encType="multipart/form-data"  // Essential for file uploads
+                  encType="multipart/form-data"
                 >
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-alegreya">
                     <div>
@@ -156,6 +157,25 @@ const ContactPage = () => {
                     />
                   </div>
                   
+                  {/* Merchandise Type Field */}
+                  <div>
+                    <label htmlFor="merch_type" className="block text-gray-700 mb-2 font-medium font-alegreya">
+                      Merchandise Type *
+                    </label>
+                    <select 
+                      name="merch_type"
+                      id="merch_type"
+                      required
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-coral focus:border-transparent transition-all"
+                    >
+                      <option value="">Select merchandise type</option>
+                      <option value="Emboss">Emboss</option>
+                      <option value="Vinyl">Vinyl</option>
+                      <option value="Print">Print</option>
+                      <option value="Embroidery">Embroidery</option>
+                    </select>
+                  </div>
+                  
                   {/* File Upload Section */}
                   <div>
                     <label className="block text-gray-700 mb-2 font-medium font-alegreya">
@@ -164,7 +184,7 @@ const ContactPage = () => {
                     <div className="flex items-center">
                       <input 
                         type="file"
-                        name="user_files"  // Must match parameter name in EmailJS
+                        name="user_files"
                         ref={fileInputRef}
                         onChange={handleFileChange}
                         multiple

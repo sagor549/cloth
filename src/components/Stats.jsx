@@ -60,7 +60,7 @@ const Stats = () => {
         className="text-center pt-16 border-t border-gray-200"
       >
         <h3 className="font-bold text-dark mb-12 section-title">
-          Proven. Trusted. Delivered.
+        Proven Results. Exceptional Craft.
         </h3>
         
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">

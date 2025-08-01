@@ -8,13 +8,13 @@ const BrandSections = () => {
     {
       title: 'Corporate & Event Apparel',
       description: 'Unify your employees and stand out at trade shows or company events with custom hoodies, tees, polos, and more designed to boost team spirit and brand visibility.',
-      image: '/cloth/cor.jpg',
+      image: '/cloth/ca.jpg',
       reverse: false
     },
     {
       title: 'Creator & Personal Branding Gear',
       description: 'Build your community and make a lasting impression with custom apparel tailored for influencers, freelancers, coaches, and entrepreneurs who want to look and feel the part.',
-      image: '/cloth/personal.jpg',
+      image: '/cloth/pe.jpg',
       reverse: true
     },
     {

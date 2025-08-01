@@ -13,15 +13,18 @@ import CTASection from './components/CTASection'
 import PreviewPage from './components/PreviewPage'
 import Stats from './components/Stats'
 import SatisfiedCustomers from './components/SatisfiedCustomers'
+import ScrollToTop from './components/ScrollToTop'
+
 
 function App() {
   return (
     <div className="min-h-screen bg-white">
+      <ScrollToTop />
       <Header />
       <main>
         <Hero />
         <Stats/>
-<section className='relative top-8'>
+<section className='relative '>
   <TrustSection />
 </section>
         <FeaturedProducts />
